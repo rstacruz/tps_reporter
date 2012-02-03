@@ -1,0 +1,131 @@
+#!/usr/bin/env ruby
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'tps'
+
+module Params
+  def extract(what)   i = index(what) and slice!(i, 2)[1] end;
+  def first_is(what)  shift  if first == what; end
+end
+
+ARGV.extend Params
+
+module TPS::Command
+  extend self
+
+  def help
+    puts "Usage: tps <command> [-f filename]"
+    puts ""
+    puts "Commands:"
+    puts "   html [-o file.html]    Builds HTML"
+    puts "   open                   Builds HTML and opens it in the browser"
+    puts "   paparazzi              Builds HTML and opens it in Paparazzi (Mac)"
+    puts ""
+  end
+
+  def html
+    t = get_tasks
+    path = output { |file| file.write t.to_html }
+    info "Wrote to '#{path}'."
+
+    path
+  end
+
+  def sample
+    require 'fileutils'
+    fn = tasks_filename
+
+    if File.exists?(fn)
+      err "Error: #{fn} already exists."
+      exit 130
+    end
+
+    FileUtils.cp TPS.root('data', 'sample.yml'), fn
+    info "Created '#{fn}'."
+    info "Edit it, then use `tps html` to generate HTML from it."
+  end
+
+  def open
+    fn = html
+    open_file fn
+  end
+
+  def paparazzi
+    fn = html
+    open_file "paparazzi:(minwidth=1,minheight=1)#{fn}"
+  end
+
+private
+  def err(str)
+    $stdout << "#{str}\n"
+  end
+
+  def info(str)
+    puts str
+  end
+
+  def tasks_filename
+    ARGV.extract('-f') ||
+    ENV['TPS_FILE'] ||
+    Dir['./{Tasksfile,tasks.yml}'].first ||
+    "tasks.yml"
+  end
+
+  def output(&blk)
+    fn = ARGV.extract('--output') || ARGV.extract('-o') || get_temp_filename
+
+    File.open(fn, 'w', &blk)
+    fn
+  end
+
+  def get_tasks
+    fn = tasks_filename
+    if !File.exists?(fn)
+      err "No tasks file found."
+      err "Create a sample using `tsp sample`."
+      exit 256
+    end
+
+    begin
+      TPS::TaskList.new yaml: fn
+    rescue => e
+      err "Parse error: #{e.message}"
+      exit 256
+    end
+  end
+
+  def opener
+    program = %w[open xdg-open start].detect { |cmd| `which #{cmd}` }
+    unless program
+      err "No opener found."
+      exit 256
+    end
+
+    program
+  end
+
+  def open_file(file)
+    require 'shellwords'
+    system "#{opener} #{file.shellescape}"
+  end
+
+  def get_temp_filename
+    require 'tmpdir'
+    File.join Dir.tmpdir, "tasks-#{'%x' % [rand * 2**48]}.html"
+  end
+end
+
+if ARGV.first_is('html')
+  TPS::Command.html
+
+elsif ARGV.first_is('open')
+  TPS::Command.open
+
+elsif ARGV.first_is('sample')
+  TPS::Command.sample
+
+elsif ARGV.first_is('paparazzi')
+  TPS::Command.paparazzi
+
+else
+  TPS::Command.help
+end

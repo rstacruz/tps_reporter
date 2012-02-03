@@ -1,0 +1,142 @@
+!!! 5
+%html
+  %head
+    %script{src: "http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7/jquery.min.js"}
+
+    :javascript
+      $("td").live('click', function() {
+        $(this).closest('tr').toggleClass('highlight');
+      });
+
+    %style
+      :plain
+        body {
+          padding: 0;
+          margin: 0; }
+
+        body, td {
+          font-family: pt sans, sans-serif;
+          color: #333;
+          line-height: 13.5pt;
+          font-size: 9pt; }
+
+        table {
+          border: solid 2px #aaa;
+          padding: 2px;
+
+          background: #fafafa;
+          margin: 0;
+          width: 600px;
+          border-collapse: collapse; }
+
+        table td, table th {
+          padding: 5px 10px;
+          border-top: solid 1px #eee; }
+
+        /* Columns */
+        tr>.task { width: 50%; text-align: left; }
+        tr>.progress { width: 20%; }
+        tr>.owner { display: none; }
+
+        /* Indentation */
+        .level-1 .task { padding-left: 25px; }
+        .level-2 .task { padding-left: 50px; }
+        .level-3 .task { padding-left: 75px; }
+        .level-4 .task { padding-left: 100px; }
+        .parent td.task { font-weight: bold; font-size: 1.1em; }
+
+        th {
+          color: #888; }
+
+        /* Zebra */
+        tr td,
+        tr {
+          background: #ffffff; }
+
+        tr:nth-child(odd) td,
+        tr:nth-child(odd) {
+          background: #fafafa; }
+
+        tr.level-0 td,
+        tr.level-1 td {
+          border-top: solid 1px #888; }
+
+        tr.highlight,
+        tr.highlight td {
+          background: #fafae0; }
+
+        /* Status box */
+        span.status {
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+          margin: 0 5px 0 0;
+          
+          border-radius: 2px;
+          
+          position: relative;
+          top: 2px;
+          background: #ddd; }
+
+        span.status.in_progress {
+          background: #ea3; }
+
+        span.status.done {
+          background: #393; }
+
+        /* Progress */
+        .progress .number {
+          display: none; }
+
+        .progress .bar {
+          height: 10px;
+          border-radius: 5px;
+          background: #ddd; }
+
+        .progress .bar span {
+          display: block;
+          height: 10px;
+          border-radius: 5px;
+          background: #888; }
+
+        tr.leaf .progress .bar {
+          display: none; }
+
+        a.meta {
+          font-size: 0.9em;
+          text-decoration: none;
+
+          background: #ddd;
+          padding: 1px 3px;
+          border-radius: 2px;
+          border-bottom: solid 1px #ccc;
+
+          margin: 0 5px;
+          color: #777; }
+                
+  %body
+
+    %table
+      %tr
+        %th.task Task
+        %th.owner Owner
+        %th.progress Progress
+
+      - list.walk do |task, recurse|
+
+        %tr{class: "level-#{task.level} #{task.tasks? ? 'parent' : 'leaf'}"}
+          %td.task
+            %span.status{class: "#{task.status}"}
+            = task
+            - if task.pivotal_id
+              %a.meta{href: task.pivotal_url}= "Pivotal: #{task.pivotal_id}"
+
+          %td.owner
+            = task.owner
+
+          %td.progress
+            .bar
+              %span{style: "width: #{(task.percent*95+5).to_i}%"}
+            %span.number= "#{(task.percent*100).to_i}%"
+
+        - recurse.call  if recurse
