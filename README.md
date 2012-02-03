@@ -43,11 +43,16 @@ Or for *branch* tasks, add it under the "_" task:
       Creating employees:
       Editing employees:
 
-Allowed metadata are:
+The metadata is just a simple YAML array that you can conveniently define using
+`[tag1, tag2, etc]`.  Allowed metadata are:
 
-    - done
-    - in progress
-    - pt/2839478 (Pivotal tracker ID)
+ - `done`
+ - `in progress`
+ - `pt/2839478` *(Pivotal tracker ID. Links to a Pivotal tracker story.)*
+ - `0pt` *(points; influences percentage. needs to end in __pt__ or __pts__.)* *
+ - `10%` *(task progress. implies __in progress__.)* *
+
+(`*` - not implemented yet)
 
 Exporting to PDF or image
 -------------------------
