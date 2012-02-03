@@ -60,6 +60,13 @@ The metadata is just a simple YAML array that you can conveniently define using
 
 (`*` - not implemented yet)
 
+Example:
+
+``` yaml
+  Creating employees: [40%]
+  Editing employees: [done, 2pts]
+```
+
 Exporting to PDF or image
 -------------------------
 
