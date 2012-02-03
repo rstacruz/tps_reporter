@@ -12,13 +12,16 @@ Install TPS (Ruby):
 
     $ gem install tps_reporter
 
-  then generate a sample file.
+...then generate a sample file. (or create `tasks.yml` based on [this][s]
+sample.)
 
     $ tps sample
 
 Edit it, then generate the report:
 
     $ tps open
+
+[s]: https://github.com/rstacruz/tps_reporter/blob/master/data/sample.yml
 
 Format
 ------
