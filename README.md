@@ -25,23 +25,29 @@ Format
 
 The tasks file, usually `tasks.yml`, is in YAML format.
 
-Tasks are always keys (ie, they all end in ':'). They can be nested as far
+Tasks are always keys (ie, they all end in `:`). They can be nested as far
 as you like.
 
-    Edit users:
-      Register and signup:
-      Login and logout:
+``` yaml
+Edit users:
+  Register and signup:
+  Login and logout:
+```
 
 To define task metadata for *leaf* tasks, add it as an array inside the task:
 
-    Manage employees: [done]
+``` yaml
+Manage employees: [done]
+```
 
-Or for *branch* tasks, add it under the "_" task:
+Or for *branch* tasks, add it under the `_` task:
 
-    Manage employees:
-      _: [done]
-      Creating employees:
-      Editing employees:
+``` yaml
+Manage employees:
+  _: [done]
+  Creating employees:
+  Editing employees:
+```
 
 The metadata is just a simple YAML array that you can conveniently define using
 `[tag1, tag2, etc]`.  Allowed metadata are:
