@@ -1,6 +1,8 @@
+require './lib/tps/version'
+
 Gem::Specification.new do |s|
   s.name = "tps_reporter"
-  s.version = "0.0.1"
+  s.version = TPS.version
   s.summary = %{Task progress sheet reporter.}
   s.description = %Q{A YAML-powered, simple command-line task report builder.}
   s.authors = ["Rico Sta. Cruz"]

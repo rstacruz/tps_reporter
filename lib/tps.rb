@@ -26,6 +26,8 @@ module TPS
   autoload :TaskList,    'tps/task_list'
   autoload :CliReporter, 'tps/cli_reporter'
 
+  require 'tps/version'
+
   def self.root(*a)
     File.join ROOT, *a
   end
