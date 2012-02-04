@@ -48,7 +48,7 @@ module TPS
 
       # If any subtasks are started, then we're started as well.
       if unstarted? &&
-         @tasks.detect { |t| t.in_progress? || t.done? }
+         @tasks.detect { |t| t.in_progress? or t.done? }
          @status = :in_progress
       end
     end
@@ -56,21 +56,21 @@ module TPS
     def status
       # If no status is given, infer the status based on tasks.
       if !@status && tasks?
-        if all_subtasks_done?
+        if all_tasks_done?
           return :done
-        elsif has_started_subtasks?
+        elsif has_started_tasks?
           return :in_progress
         end
       end
+
       @status or :unstarted
-      end
     end
 
-    def all_subtasks_done?
-      tasks.any? { |t| ! t.done? }
+    def all_tasks_done?
+      tasks? and !tasks.any? { |t| ! t.done? }
     end
 
-    def has_started_subtasks?
+    def has_started_tasks?
       tasks? and tasks.any? { |t| t.in_progress? or t.done? }
     end
 
@@ -112,6 +112,19 @@ module TPS
 
     def level
       parent ? parent.level + 1 : 0
+    end
+
+    def root?
+      ! parent
+    end
+
+    def feature?
+      root? or parent.milestone?
+    end
+
+    def milestone?
+      n = name.downcase
+      n.include?('milestone') or n.include?('version')
     end
 
     # - list.walk do |task, recurse|

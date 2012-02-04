@@ -43,7 +43,23 @@
         .level-2 .task { padding-left: 50px; }
         .level-3 .task { padding-left: 75px; }
         .level-4 .task { padding-left: 100px; }
-        .parent td.task { font-weight: bold; font-size: 1.1em; }
+
+        /* Overrides for parents */
+        .milestone td.task,
+        .feature td.task {
+          font-weight: bold;
+          font-size: 1.1em; }
+
+        tr.milestone td,
+        tr.feature td {
+          border-top: solid 1px #888; }
+
+        tr .progress .bar {
+          display: none; }
+
+        tr.milestone .progress .bar,
+        tr.feature .progress .bar {
+          display: block; }
 
         th {
           color: #888; }
@@ -57,10 +73,6 @@
         tr:nth-child(odd) {
           background: #fafafa; }
 
-        tr.level-0 td,
-        tr.level-1 td {
-          border-top: solid 1px #888; }
-
         tr.highlight,
         tr.highlight td {
           background: #fafae0; }
@@ -71,9 +83,9 @@
           width: 12px;
           height: 12px;
           margin: 0 5px 0 0;
-          
+
           border-radius: 2px;
-          
+
           position: relative;
           top: 2px;
           background: #ddd; }
@@ -99,9 +111,6 @@
           border-radius: 5px;
           background: #888; }
 
-        tr.leaf .progress .bar {
-          display: none; }
-
         a.meta {
           font-size: 0.9em;
           text-decoration: none;
@@ -113,7 +122,7 @@
 
           margin: 0 5px;
           color: #777; }
-                
+
   %body
 
     %table
@@ -124,7 +133,7 @@
 
       - list.walk do |task, recurse|
 
-        %tr{class: "level-#{task.level} #{task.tasks? ? 'parent' : 'leaf'}"}
+        %tr{class: "level-#{task.level} #{task.tasks? ? 'parent' : 'leaf'} #{'root' if task.root?} #{'feature' if task.feature?} #{'milestone' if task.milestone?}"}
           %td.task
             %span.status{class: "#{task.status}"}
             = task
