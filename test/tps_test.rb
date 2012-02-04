@@ -52,6 +52,15 @@ class MyTest < UnitTest
     assert task.percent == 0.5
   end
 
+  test "In progress" do
+    task = @milestone.tasks[6]
+    assert_equal 2, task.tasks.size
+    assert task.tasks[1].in_progress?
+    assert_equal 0.5, task.tasks[1].percent
+    assert_equal 0.5, task.tasks[1].points_done
+    assert_equal 0.25, task.percent
+
+  end
   test "HTML works" do
     assert @list.to_html
   end

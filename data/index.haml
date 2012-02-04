@@ -35,7 +35,8 @@
 
         /* Columns */
         tr>.task { width: 50%; text-align: left; }
-        tr>.progress { width: 20%; }
+        tr>.points { width: 9%; }
+        tr>.progress { width: 18%; }
         tr>.owner { display: none; }
 
         /* Indentation */
@@ -60,6 +61,17 @@
         tr.milestone .progress .bar,
         tr.feature .progress .bar {
           display: block; }
+
+        tr td.points>* {
+          display: none; }
+
+        tr.milestone td.points>*,
+        tr.feature td.points>* {
+          display: inline; }
+
+        /* Header */
+        thead {
+          display: none; }
 
         th {
           color: #888; }
@@ -123,13 +135,27 @@
           margin: 0 5px;
           color: #777; }
 
+        /* Progress */
+        td.points {
+          text-align: left;
+          font-size: 0.9em; }
+
+        td.points .points.done {
+          font-weight: bold; }
+
+        td.points .of,
+        td.points .points.total {
+          color: #888; }
+
   %body
 
     %table
-      %tr
-        %th.task Task
-        %th.owner Owner
-        %th.progress Progress
+      %thead
+        %tr
+          %th.task Task
+          %th.owner Owner
+          %th.progress Progress
+          %th.points Points
 
       - list.walk do |task, recurse|
 
@@ -147,5 +173,10 @@
             .bar
               %span{style: "width: #{(task.percent*95+5).to_i}%"}
             %span.number= "#{(task.percent*100).to_i}%"
+
+          %td.points
+            %span.points.done= task.points_done.round(1).to_s.gsub(/\.0+$/,'')
+            %span.of of
+            %span.points.total= task.points.round(1).to_s.gsub(/\.0+$/,'')
 
         - recurse.call  if recurse

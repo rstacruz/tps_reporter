@@ -30,7 +30,7 @@ module TPS
         # [done]
         if ['done', 'ok'].include?(t)
           @status = :done
-        elsif ['in_progress', '...'].include?(t)
+        elsif ['in progress', '...'].include?(t)
           @status = :in_progress
         # [@rstacruz]
         elsif t =~ /^@/
