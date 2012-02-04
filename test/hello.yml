@@ -11,3 +11,27 @@ Milestone 2:
     two: [done]
     three: [done]
 
+  Explicit points: #3
+    _: [15pt]
+    one: [done]
+    two: [done]
+    three: [done]
+    four:
+
+  Compound points: #4
+    one:
+    two:
+    three:
+      sub1: [3pts, done]
+      sub2:
+
+  Point rescaling: #5
+    # Has 6 sub points, but will be rescaled to 8.
+    # That is, the done "3" point task is actually worth 4 points.
+    one:
+      _: [8pts]
+      sub1: [3pts, done]
+      sub2: [1pt]
+      sub3: [1pt]
+      sub4: [1pt]
+

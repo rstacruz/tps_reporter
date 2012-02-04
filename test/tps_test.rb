@@ -27,6 +27,31 @@ class MyTest < UnitTest
     assert task.percent == 0.5
   end
 
+  test "Points" do
+    task = @milestone.tasks[1]
+    assert task.points == 2.0
+  end
+
+  test "Explicit points" do
+    task = @milestone.tasks[3]
+    assert task.points == 15
+    assert task.percent == 0.75
+    assert task.points_done == 11.25
+  end
+
+  test "Compound points" do
+    task = @milestone.tasks[4]
+    assert task.points == 6
+    assert task.percent == 0.50
+  end
+
+  test "Point rescaling" do
+    task = @milestone.tasks[5]
+    assert task.points == 8
+    assert task.points_done == 4.0
+    assert task.percent == 0.5
+  end
+
   test "HTML works" do
     assert @list.to_html
   end

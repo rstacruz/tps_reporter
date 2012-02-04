@@ -35,12 +35,16 @@ module TPS
         # [@rstacruz]
         elsif t =~ /^@/
           @owner = t[1..-1]
-        # [pt/28394] pivotal tracker
+        # [pt/28394] -- Pivotal tracker
         elsif t =~ /^pt\/(.*)$/i
           @pivotal_id = $1.strip
+        # [50%] -- percentage
         elsif t =~ /^([\d\.]+)%$/
           @status = :in_progress
           @percent = $1.strip.to_f / 100
+        # [0pt] -- points
+        elsif t =~ /^([\d\.]+)pts?/i
+          @points = $1.strip.to_f
         end
       end
 
@@ -64,6 +68,20 @@ module TPS
       end
 
       @status or :unstarted
+    end
+
+    def points
+      if @points
+        @points
+      elsif tasks?
+        tasks.inject(0.0) { |pts, task| pts + task.points }
+      else
+        1.0
+      end
+    end
+
+    def points_done
+      points * percent
     end
 
     def all_tasks_done?
@@ -104,7 +122,8 @@ module TPS
       elsif @percent
         @percent
       elsif tasks?
-        tasks.inject(0) { |i, task| i + task.percent } / tasks.size
+        total = tasks.inject(0.0) { |pts, task| pts + task.points }
+        tasks.inject(0) { |i, task| i + task.points_done } / total
       else
         in_progress? ? 0.5 : 0
       end
