@@ -28,20 +28,25 @@ module TPS
       # Parse tags.
       tags.each do |t|
         # [done]
-        if ['done', 'in progress'].include?(t)
-          @status = :"#{t.gsub(' ','_')}"
+        if ['done', 'ok'].include?(t)
+          @status = :done
+        elsif ['in_progress', '...'].include?(t)
+          @status = :in_progress
         # [@rstacruz]
         elsif t =~ /^@/
           @owner = t[1..-1]
-        # [pt:28394] pivotal tracker
-        elsif t =~ /^pt\//
-          @pivotal_id = t[3..-1]
+        # [pt/28394] pivotal tracker
+        elsif t =~ /^pt\/(.*)$/i
+          @pivotal_id = $1.strip
+        elsif t =~ /^([\d\.]+)%$/
+          @status = :in_progress
+          @percent = $1.strip.to_f / 100
         end
       end
 
       @tasks = tasks.map { |task, data| Task.new self, task, data }  if tasks
 
-      # If any subtasks are started, then we're started as well
+      # If any subtasks are started, then we're started as well.
       if unstarted? &&
          @tasks.detect { |t| t.in_progress? || t.done? }
          @status = :in_progress
@@ -49,12 +54,24 @@ module TPS
     end
 
     def status
-      # If no status is given, the task is 'done' if all it's subtasks are done.
+      # If no status is given, infer the status based on tasks.
       if !@status && tasks?
-        return :done  unless tasks.any? { |t| ! t.done? }
+        if all_subtasks_done?
+          return :done
+        elsif has_started_subtasks?
+          return :in_progress
+        end
       end
+      @status or :unstarted
+      end
+    end
 
-      @status || :unstarted
+    def all_subtasks_done?
+      tasks.any? { |t| ! t.done? }
+    end
+
+    def has_started_subtasks?
+      tasks? and tasks.any? { |t| t.in_progress? or t.done? }
     end
 
     def to_s
@@ -82,13 +99,15 @@ module TPS
     end
 
     def percent
-      return 1.0 if done?
-
-      if tasks.empty?
-        return in_progress? ? 0.5 : 0
+      if done?
+        1.0
+      elsif @percent
+        @percent
+      elsif tasks?
+        tasks.inject(0) { |i, task| i + task.percent } / tasks.size
+      else
+        in_progress? ? 0.5 : 0
       end
-
-      tasks.inject(0) { |i, task| i + task.percent } / tasks.size
     end
 
     def level
