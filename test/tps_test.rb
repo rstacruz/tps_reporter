@@ -8,7 +8,7 @@ class MyTest < UnitTest
 
   test "Has tasks" do
     assert @list.tasks?
-    assert @list.tasks.size == 1
+    assert @list.tasks.size == 2
     assert @list.tasks.first.tasks.size >= 2
   end
 
@@ -59,8 +59,12 @@ class MyTest < UnitTest
     assert_equal 0.5, task.tasks[1].percent
     assert_equal 0.5, task.tasks[1].points_done
     assert_equal 0.25, task.percent
-
   end
+
+  test "Milestone" do
+    assert @milestone.milestone?
+  end
+
   test "HTML works" do
     assert @list.to_html
   end
