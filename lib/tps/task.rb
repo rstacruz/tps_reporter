@@ -50,11 +50,8 @@ module TPS
 
       @tasks = tasks.map { |task, data| Task.new self, task, data }  if tasks
 
-      # If any subtasks are started, then we're started as well.
-      if unstarted? &&
-         @tasks.detect { |t| t.in_progress? or t.done? }
-         @status = :in_progress
-      end
+      n = name.to_s.downcase
+      @milestone = root? && (n.include?('milestone') || n.include?('version'))
     end
 
     def status
@@ -142,8 +139,7 @@ module TPS
     end
 
     def milestone?
-      n = name.downcase
-      n.include?('milestone') or n.include?('version')
+      !! @milestone
     end
 
     # - list.walk do |task, recurse|
