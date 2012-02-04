@@ -39,4 +39,11 @@ Milestone 1:
     one:
     two: [in progress]
 
+  Progress override: #7
+    # It's supposed to be 50% done because of it's subtasks, but
+    # Defining our own percentage overrides that.
+    _: [20%]
+    one: [done]
+    two:
+
 Milestone 2:

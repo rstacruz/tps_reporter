@@ -61,6 +61,12 @@ class MyTest < UnitTest
     assert_equal 0.25, task.percent
   end
 
+  test "Progress override" do
+    task = @milestone.tasks[7]
+    assert_equal 0.2, task.percent
+    assert_equal 0.4, task.points_done
+  end
+
   test "Milestone" do
     assert @milestone.milestone?
   end
