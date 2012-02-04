@@ -13,12 +13,17 @@ module TPS::Command
   extend self
 
   def help
-    puts "Usage: tps <command> [-f filename]"
+    puts "Usage: tps <command> [-f filename] [-o output]"
     puts ""
     puts "Commands:"
-    puts "   html [-o file.html]    Builds HTML"
-    puts "   open                   Builds HTML and opens it in the browser"
-    puts "   paparazzi              Builds HTML and opens it in Paparazzi (Mac)"
+    puts "   html                 Builds HTML"
+    puts "   open                 Builds HTML and opens it in the browser"
+    puts "   paparazzi            Builds HTML and opens it in Paparazzi (Mac)"
+    puts "   print                Prints the report to the console."
+    puts ""
+    puts "Options (optional):"
+    puts "  -f FILE               Specifies the input file. Defaults to tasks.yml."
+    puts "  -o/--output OUTPUT    Specifies the output HTML file."
     puts ""
   end
 
@@ -52,6 +57,12 @@ module TPS::Command
   def paparazzi
     fn = html
     open_file "paparazzi:(minwidth=1,minheight=1)#{fn}"
+  end
+
+  def print
+    t = get_tasks
+    reporter = TPS::CliReporter.new(t)
+    reporter.print
   end
 
 private
@@ -122,6 +133,9 @@ elsif ARGV.first_is('open')
 
 elsif ARGV.first_is('sample')
   TPS::Command.sample
+
+elsif ARGV.first_is('print')
+  TPS::Command.print
 
 elsif ARGV.first_is('paparazzi')
   TPS::Command.paparazzi

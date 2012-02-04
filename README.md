@@ -58,10 +58,8 @@ The metadata is just a simple YAML array that you can conveniently define using
  - `done`
  - `in progress`
  - `pt/2839478` *(Pivotal tracker ID. Links to a Pivotal tracker story.)*
- - `0pt` *(points; influences percentage. needs to end in __pt__ or __pts__.)* *
- - `10%` *(task progress. implies __in progress__.)* *
-
-(`*` - not implemented yet)
+ - `0pt` *(points; influences percentage. needs to end in __pt__ or __pts__.)*
+ - `10%` *(task progress. implies __in progress__.)*
 
 Example:
 
@@ -76,3 +74,13 @@ Exporting to PDF or image
 If you're on a Mac, install [Paparazzi](http://derailer.org/paparazzi)
 and use the `tps paparazzi` command. This will open the report in Paparazzi
 where you can save or copy it as an image, or PDF.
+
+Command line
+------------
+
+There's also a command line reporter that you can access via `tps print`. It
+looks like this:
+
+![Comamnd line reporter][cli]
+
+[cli]: https://img.skitch.com/20120204-ccb2guerhrjmj3rht3e4ies4ur.png

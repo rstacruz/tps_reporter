@@ -22,8 +22,9 @@ require 'tilt'
 module TPS
   ROOT = File.expand_path('../../', __FILE__)
 
-  require 'tps/task'
-  require 'tps/task_list'
+  autoload :Task,        'tps/task'
+  autoload :TaskList,    'tps/task_list'
+  autoload :CliReporter, 'tps/cli_reporter'
 
   def self.root(*a)
     File.join ROOT, *a

@@ -50,7 +50,7 @@ module TPS
 
       @tasks = tasks.map { |task, data| Task.new self, task, data }  if tasks
 
-      n = name.to_s.downcase
+      n = @name.to_s.downcase
       @milestone = root? && (n.include?('milestone') || n.include?('version'))
     end
 
