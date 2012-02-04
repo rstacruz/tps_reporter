@@ -3,7 +3,8 @@
 ![TPS report](https://img.skitch.com/20120203-nr24dn9u7euchmqa516718unpe.png)
 
 We often need to make regular reports of things done for our projects at work. I
-hate doing these by hand. This tool lets us build these reports from YAML files.
+hate doing these by hand. This tool lets us build these reports from YAML files
+[such as this][s].
 
 Get started
 -----------
@@ -12,8 +13,8 @@ Install TPS (Ruby):
 
     $ gem install tps_reporter
 
-...then generate a sample file. (or create `tasks.yml` based on [this][s]
-sample.)
+...then generate a sample file. (or create `tasks.yml` based on [this sample
+file.][s])
 
     $ tps sample
 
