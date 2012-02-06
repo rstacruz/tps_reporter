@@ -25,15 +25,23 @@ module TPS
       # Columns
       c1 = "%s %s %s" % [ indent, status, task.name ]
       c2 = if task.feature? || task.milestone?
-             progress
+             "%6s %s" % [ points, progress ]
           else
-            ' '*12
+            ' '*19
           end
 
       pref = c("-"*80, 30)+"\n"  if task.feature?
 
       # Put together
-      "#{pref}" + "%-95s%s\n" % [ c1, c2 ]
+      "#{pref}" + "%-88s%s\n" % [ c1, c2 ]
+    end
+
+    def points
+      [
+        "%3i" % [ task.points_done ],
+        c("/", 30),
+        c("%-2i" % [ task.points ], 32)
+      ].join ''
     end
 
     def color
