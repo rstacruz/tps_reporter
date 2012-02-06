@@ -3,8 +3,17 @@ $:.unshift File.expand_path('../../lib', __FILE__)
 require 'tps'
 
 module Params
-  def extract(what)   i = index(what) and slice!(i, 2)[1] end;
-  def first_is(what)  shift  if first == what; end
+  def extract(what)
+    i = index(what) and slice!(i, 2)[1]
+  end
+
+  def first_is(what)
+    shift  if first == what
+  end
+
+  def first_matches(what)
+    shift  if first.downcase == what.downcase[0...first.size]
+  end
 end
 
 ARGV.extend Params
@@ -125,19 +134,19 @@ private
   end
 end
 
-if ARGV.first_is('html')
+if ARGV.first_matches('html')
   TPS::Command.html
 
-elsif ARGV.first_is('open')
+elsif ARGV.first_matches('open')
   TPS::Command.open
 
-elsif ARGV.first_is('sample')
+elsif ARGV.first_matches('sample')
   TPS::Command.sample
 
-elsif ARGV.first_is('print')
+elsif ARGV.first_matches('print')
   TPS::Command.print
 
-elsif ARGV.first_is('paparazzi')
+elsif ARGV.first_matches('paparazzi')
   TPS::Command.paparazzi
 
 else
