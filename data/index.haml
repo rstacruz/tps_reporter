@@ -124,7 +124,8 @@
           background: #888; }
 
         a.meta {
-          font-size: 0.9em;
+          font-size: 8pt;
+          font-weight: normal;
           text-decoration: none;
 
           background: #ddd;
@@ -164,7 +165,7 @@
             %span.status{class: "#{task.status}"}
             = task
             - if task.pivotal_id
-              %a.meta{href: task.pivotal_url}= "Pivotal: #{task.pivotal_id}"
+              %a.meta{href: task.pivotal_url}= "PT ##{task.pivotal_id}"
 
           %td.owner
             = task.owner
