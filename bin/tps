@@ -30,6 +30,8 @@ module TPS::Command
     puts "   open                 Builds HTML and opens it in the browser"
     puts "   paparazzi            Builds HTML and opens it in Paparazzi (Mac)"
     puts "   print                Prints the report to the console."
+    puts "   import FILE FORMAT   Import from a file of a given format."
+    puts "                        (Supported formats: trello)"
     puts ""
     puts "Options (optional):"
     puts "  -f FILE               Specifies the input file. Defaults to tasks.yml."
