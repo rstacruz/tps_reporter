@@ -46,8 +46,8 @@
         .level-4 .task { padding-left: 100px; }
 
         /* Overrides for parents */
-        .milestone td.task,
-        .feature td.task {
+        tr.milestone td.task,
+        tr.feature td.task {
           font-weight: bold;
           font-size: 1.1em; }
 
@@ -68,6 +68,16 @@
         tr.milestone td.points>*,
         tr.feature td.points>* {
           display: inline; }
+
+        /* Milestone */
+        tr.milestone td {
+          line-height: 18pt; }
+
+        tr.milestone:not(:first-child) td {
+          border-top: solid 3px #777; }
+
+        tr.milestone td.task {
+          font-size: 1.2em; }
 
         /* Header */
         thead {
@@ -123,7 +133,7 @@
           border-radius: 5px;
           background: #888; }
 
-        a.meta {
+        .meta {
           white-space: nowrap;
           font-size: 8pt;
           font-weight: normal;
@@ -137,6 +147,12 @@
 
           margin: 0 10px;
           color: #999; }
+
+        span.meta {
+          background: #ddd;
+          border-bottom: solid 1px #ccc;
+          border-right: solid 1px #ccc;
+          color: #666; }
 
         /* Progress */
         td.points {
@@ -168,6 +184,13 @@
             = task
             - if task.pivotal_id
               %a.meta{href: task.pivotal_url}= "PT ##{task.pivotal_id}"
+
+            - if task.tags.any?
+              - task.tags.each do |tag|
+                %span.meta= tag
+
+            - if task.leaf? && task.points != 1
+              %span.meta=  ("%.2f" % task.points).gsub(/\.?0+$/,'') + "pts"
 
           %td.owner
             = task.owner

@@ -8,10 +8,12 @@ module TPS
     attr_reader :owner
     attr_reader :pivotal_id
     attr_reader :parent
+    attr_reader :tags
 
     def initialize(parent, name, data=nil)
       @name   = name
       @tasks  = Array.new
+      @tags   = Array.new
       @parent = parent
 
       if data.is_a?(Array)
@@ -45,6 +47,9 @@ module TPS
         # [0pt] -- points
         elsif t =~ /^([\d\.]+)pts?/i
           @points = $1.strip.to_f
+        # [-all] -- tags
+        elsif %w[- #].include?(t[0])
+          @tags.push t[1..-1]
         end
       end
 
@@ -140,6 +145,10 @@ module TPS
 
     def milestone?
       !! @milestone
+    end
+
+    def leaf?
+      tasks.empty?
     end
 
     # - list.walk do |task, recurse|

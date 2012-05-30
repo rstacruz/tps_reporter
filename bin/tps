@@ -26,6 +26,7 @@ module TPS::Command
     puts ""
     puts "Commands:"
     puts "   html                 Builds HTML"
+    puts "   html --stdout        Builds HTML in stdout"
     puts "   open                 Builds HTML and opens it in the browser"
     puts "   paparazzi            Builds HTML and opens it in Paparazzi (Mac)"
     puts "   print                Prints the report to the console."
@@ -38,8 +39,14 @@ module TPS::Command
 
   def html
     t = get_tasks
-    path = output { |file| file.write t.to_html }
-    info "Wrote to '#{path}'."
+    stdout = ARGV.delete('--stdout')
+
+    if stdout
+      puts t.to_html
+    else
+      path = output { |file| file.write t.to_html }
+      info "Wrote to '#{path}'."
+    end
 
     path
   end
@@ -72,6 +79,13 @@ module TPS::Command
     t = get_tasks
     reporter = TPS::CliReporter.new(t)
     reporter.print
+  end
+
+  def import(file, format=nil)
+    require 'tps/importer'
+    import = TPS::Importer.create(file, format)
+    File.open('tasks.yml', 'w') { |f| f.write import.to_yaml }
+    puts "Wrote to tasks.yml."
   end
 
 private
@@ -145,6 +159,9 @@ elsif ARGV.first_matches('sample')
 
 elsif ARGV.first_matches('print')
   TPS::Command.print
+
+elsif ARGV.first_matches('import')
+  TPS::Command.import *ARGV
 
 elsif ARGV.first_matches('paparazzi')
   TPS::Command.paparazzi
