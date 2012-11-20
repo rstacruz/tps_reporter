@@ -4,12 +4,14 @@ class SprintTest < UnitTest
   setup do
     @list = TPS::TaskList.new yaml: f('sprints.yml')
     @milestone = @list.tasks.first
+    @s1 = @list.sprints['s1']
+    @s2 = @list.sprints['s2']
   end
 
   test "Sprints" do
     assert @list.sprints.size == 2
-    assert @list.sprints['s1'].name == 'Sprint one'
-    assert @list.sprints['s2'].name == 'Sprint two'
+    assert @s1.name == 'Sprint one'
+    assert @s2.name == 'Sprint two'
   end
 
   test "Sprint model attributes" do
@@ -19,9 +21,25 @@ class SprintTest < UnitTest
   end
 
   test "Tasks should be assigned to sprints" do
-    assert @list['Version 1']['Account']['Login'].sprint == @list.sprints['s1']
+    assert @list['Version 1']['Account']['Login'].sprint == @s1
   end
 
+  test "Task#contains_sprint?" do
+    assert @list.contains_sprint?(@s1)
+    assert @list.contains_sprint?(@s2)
+  end
+
+  test "Task#contains_sprint? part 2" do
+    task = @list['Version 1']['Account']['Login']
+    assert task.contains_sprint?(@s1)
+    assert ! task.contains_sprint?(@s2)
+  end
+
+  test "Task#filter" do
+    task = @list.filter { |t| t.contains_sprint?(@s1) }
+    assert ! task['Version 1']['Account']['Login'].nil?
+    assert task['Version 1']['Account']['Signup'].nil?
+  end
 end
 
  

@@ -124,10 +124,45 @@ module TPS
       tasks.any?
     end
 
+    def contains_sprint?(sprint)
+      contains? { |t| t.sprint == sprint }
+    end
+
+    # Filters a task list by tasks that match a given block, preserving its
+    # ancestors even if they don't match.
+    #
+    #     @list.contains? { |t| t.done? }
+    #     @list.contains? { |t| t.sprint == sprint }
+    #
+    def contains?(&blk)
+      blk.call(self) || tasks.detect { |t| t.contains?(&blk) }
+    end
+
+    # Filters a task tree to tasks of a given criteria, preserving its
+    # ancestors even if they don't match.
+    #
+    #     @list.filter { |t| t.done? }
+    #
+    def filter(&blk)
+      filter_by { |t| t.contains?(&blk) }
+    end
+
+    # Works like #filter, but only preserves ancestors if they match.
+    def filter_by(&blk)
+      return nil  unless blk.call(self)
+      task = self.dup
+      task.instance_variable_set :@tasks, tasks.map { |t| t.filter(&blk) }.compact
+      task
+    end
+
     def pivotal_url
       "https://www.pivotaltracker.com/story/show/#{pivotal_id}"  if pivotal_id
     end
 
+    # Looks up a task.
+    #
+    #     @list['Login']
+    #
     def [](name)
       tasks.detect { |t| t.name == name }
     end
