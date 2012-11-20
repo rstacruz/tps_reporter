@@ -184,6 +184,8 @@
             = task
             - if task.pivotal_id
               %a.meta{href: task.pivotal_url}= "PT ##{task.pivotal_id}"
+            - if task.trello_id
+              %a.meta{href: task.trello_url}= "Trello"
 
             - if task.tags.any?
               - task.tags.each do |tag|

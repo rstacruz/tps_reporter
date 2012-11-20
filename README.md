@@ -59,6 +59,7 @@ The metadata is just a simple YAML array that you can conveniently define using
  - `done`
  - `in progress`
  - `pt/2839478` *(Pivotal tracker ID. Links to a Pivotal tracker story.)*
+ - `tr/LabxGP3` *(Trello card short name. Links to a Trello card.)*
  - `0pt` *(points; influences percentage. needs to end in __pt__ or __pts__.)*
  - `10%` *(task progress. implies __in progress__.)*
 

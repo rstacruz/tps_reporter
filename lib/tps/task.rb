@@ -7,6 +7,7 @@ module TPS
     attr_reader :tasks    # Array of Tasks
     attr_reader :owner
     attr_reader :pivotal_id
+    attr_reader :trello_id
     attr_reader :parent
     attr_reader :tags
 
@@ -40,6 +41,9 @@ module TPS
         # [pt/28394] -- Pivotal tracker
         elsif t =~ /^pt\/(.*)$/i
           @pivotal_id = $1.strip
+        # [tl/28394] -- Trello
+        elsif t =~ /^tr\/(.*)$/i
+          @trello_id = $1.strip
         # [50%] -- percentage
         elsif t =~ /^([\d\.]+)%$/
           @status = :in_progress
@@ -116,6 +120,13 @@ module TPS
 
     def pivotal_url
       "https://www.pivotaltracker.com/story/show/#{pivotal_id}"  if pivotal_id
+    end
+
+    def trello_url
+      if trello_id
+        id = trello_id.match(/([A-Za-z0-9]+)$/) && $1.strip
+        "https://trello.com/c/#{id}"
+      end
     end
 
     def percent
