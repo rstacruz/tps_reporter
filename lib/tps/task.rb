@@ -138,20 +138,28 @@ module TPS
       blk.call(self) || tasks.detect { |t| t.contains?(&blk) }
     end
 
+    def ancestor?(&blk)
+      blk.call(self) || parent && parent.ancestor?(&blk)
+    end
+
     # Filters a task tree to tasks of a given criteria, preserving its
     # ancestors even if they don't match.
     #
     #     @list.filter { |t| t.done? }
     #
     def filter(&blk)
-      filter_by { |t| t.contains?(&blk) }
+      filter_by { |t| t.contains?(&blk) || t.ancestor?(&blk) }
+    end
+
+    def filter_by_sprint(sprint)
+      filter { |t| t.sprint == sprint }
     end
 
     # Works like #filter, but only preserves ancestors if they match.
     def filter_by(&blk)
       return nil  unless blk.call(self)
       task = self.dup
-      task.instance_variable_set :@tasks, tasks.map { |t| t.filter(&blk) }.compact
+      task.instance_variable_set :@tasks, tasks.map { |t| t.filter_by(&blk) }.compact
       task
     end
 

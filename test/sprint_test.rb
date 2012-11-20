@@ -35,10 +35,16 @@ class SprintTest < UnitTest
     assert ! task.contains_sprint?(@s2)
   end
 
-  test "Task#filter" do
-    task = @list.filter { |t| t.contains_sprint?(@s1) }
-    assert ! task['Version 1']['Account']['Login'].nil?
-    assert task['Version 1']['Account']['Signup'].nil?
+  test "Task#filter_by_sprint" do
+    list = @list.filter_by_sprint(@s1)
+    assert ! list['Version 1']['Account']['Login'].nil?
+    assert list['Version 1']['Account']['Signup'].nil?
+  end
+
+  test "Sub-tasks of a sprint task" do
+    list = @list.filter_by_sprint(@s1)
+    task = list['Version 1']['Comments']['Creating']
+    assert ! task.nil?
   end
 end
 

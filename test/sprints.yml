@@ -6,3 +6,8 @@ Version 1:
   Account:
     Login: [s1]
     Signup: [s2]
+
+  Comments:
+    _: [s1]
+    Creating:
+    Deleting:
