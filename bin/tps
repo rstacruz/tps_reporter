@@ -117,7 +117,7 @@ private
     fn = tasks_filename
     if !File.exists?(fn)
       err "No tasks file found."
-      err "Create a sample using `tsp sample`."
+      err "Create a sample using `tps sample`."
       exit 256
     end
 
