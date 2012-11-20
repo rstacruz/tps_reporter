@@ -124,6 +124,10 @@ module TPS
       tasks.any?
     end
 
+    def sprint?
+      !! sprint
+    end
+
     def contains_sprint?(sprint)
       contains? { |t| t.sprint == sprint }
     end
