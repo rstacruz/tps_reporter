@@ -150,7 +150,10 @@ private
   end
 end
 
-if ARGV.first_matches('html')
+if ARGV.empty?
+  TPS::Command.help
+
+elsif ARGV.first_matches('html')
   TPS::Command.html
 
 elsif ARGV.first_matches('open')
