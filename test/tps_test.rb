@@ -74,4 +74,8 @@ class MyTest < UnitTest
   test "HTML works" do
     assert @list.to_html
   end
+
+  test "Lookup" do
+    assert @list['Milestone 1'] == @milestone
+  end
 end

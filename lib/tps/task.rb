@@ -122,6 +122,10 @@ module TPS
       "https://www.pivotaltracker.com/story/show/#{pivotal_id}"  if pivotal_id
     end
 
+    def [](name)
+      tasks.detect { |t| t.name == name }
+    end
+
     def trello_url
       if trello_id
         id = trello_id.match(/([A-Za-z0-9]+)$/) && $1.strip
