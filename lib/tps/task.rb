@@ -10,12 +10,15 @@ module TPS
     attr_reader :trello_id
     attr_reader :parent
     attr_reader :tags
+    attr_reader :list     # the root TaskList
+    attr_reader :sprint
 
-    def initialize(parent, name, data=nil)
+    def initialize(parent, name, data=nil, list)
       @name   = name
       @tasks  = Array.new
       @tags   = Array.new
       @parent = parent
+      @list   = list
 
       if data.is_a?(Array)
         tags = data
@@ -54,10 +57,13 @@ module TPS
         # [-all] -- tags
         elsif %w[- #].include?(t[0])
           @tags.push t[1..-1]
+        # Sprint name
+        elsif list && list.sprints[t]
+          @sprint = list.sprints[t]
         end
       end
 
-      @tasks = tasks.map { |task, data| Task.new self, task, data }  if tasks
+      @tasks = tasks.map { |task, data| Task.new self, task, data, self.list }  if tasks
 
       n = @name.to_s.downcase
       @milestone = root? && (n.include?('milestone') || n.include?('version'))

@@ -123,7 +123,7 @@ private
 
     begin
       TPS::TaskList.new yaml: fn
-    rescue => e
+    rescue Psych::SyntaxError => e
       err "Parse error: #{e.message}"
       exit 256
     end

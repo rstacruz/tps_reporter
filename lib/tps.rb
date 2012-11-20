@@ -25,6 +25,7 @@ module TPS
   autoload :Task,        'tps/task'
   autoload :TaskList,    'tps/task_list'
   autoload :CliReporter, 'tps/cli_reporter'
+  autoload :Sprint,      'tps/sprint'
 
   require 'tps/version'
 
