@@ -164,25 +164,40 @@
         .sprint-display {
           background: #eee;
           border-radius: 6px;
-          float: left;
           height: 12px;
           position: relative; }
 
-        .sprint-marker {
-          font-size: 0.8em;
-          height: 12px;
-          line-height: 12px;
-          padding: 0 7px;
-          border-radius: 6px;
+        .sprint-display {
+          overflow: hidden; }
+        .sprint-progress {
+          display: block;
+          float: left;
 
           background: #ddd;
-          color: white;
-          text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+          height: 2px;
+          border-top-left-radius: 1px;
+          border-bottom-left-radius: 1px;
+          margin-top: 7px; }
 
-          position: relative;
-          z-index: 1;
+        .sprint-marker {
+          display: block;
+          float: left;
 
-          vertical-align: top; }
+          background: #ccc;
+
+          width: 6px;
+          height: 6px;
+          border-radius: 3px;
+          float: left;
+          margin-top: 5px; }
+
+        .sprint-label {
+          display: block;
+          float: left;
+
+          font-size: 7pt;
+          color: #888;
+          padding-left: 5px; }
 
         .status-in_progress {
           background: #ea3; }
@@ -227,8 +242,10 @@
           - if list.sprints?
             %td.sprints
               - if task.sprint?
-                %span.sprint-display{style: "padding-left: #{40*task.sprint.index+6}px"}
+                %span.sprint-display
+                  %span.sprint-progress{style: "width: #{30*task.sprint.index+6}px"}
                   %span.sprint-marker{class: "status-#{task.status}"}
+                  %span.sprint-label
                     = task.sprint.id
 
           %td.progress
