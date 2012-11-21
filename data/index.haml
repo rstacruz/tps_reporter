@@ -223,7 +223,7 @@
 
       - list.walk do |task, recurse|
 
-        %tr{class: "level-#{task.level} #{task.tasks? ? 'parent' : 'leaf'} #{'root' if task.root?} #{'feature' if task.feature?} #{'milestone' if task.milestone?}"}
+        %tr{id: "task_#{task.id}", class: "level-#{task.level} #{task.tasks? ? 'parent' : 'leaf'} #{'root' if task.root?} #{'feature' if task.feature?} #{'milestone' if task.milestone?}"}
           %td.task
             %span.status{class: "status-#{task.status}"}
             = task

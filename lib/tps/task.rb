@@ -11,6 +11,7 @@ module TPS
     attr_reader :parent
     attr_reader :tags
     attr_reader :list     # the root TaskList
+    attr_reader :id
 
     def initialize(parent, name, data=nil, list)
       @name   = name
@@ -66,6 +67,8 @@ module TPS
 
       n = @name.to_s.downcase
       @milestone = root? && (n.include?('milestone') || n.include?('version'))
+
+      @id = list.get_id  if list
     end
 
     def status

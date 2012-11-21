@@ -24,5 +24,11 @@ module TPS
     def sprints?
       sprints.any?
     end
+
+    # Returns a fresh ID. (internal)
+    def get_id
+      @task_count ||= 0
+      @task_count += 1
+    end
   end
 end
