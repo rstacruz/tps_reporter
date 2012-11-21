@@ -164,7 +164,7 @@ module TPS
     def breadcrumbs(include_self=true)
       arr = []
       arr += [self]  if include_self
-      arr += parent.breadcrumbs  if parent && !parent.root?
+      arr += parent.breadcrumbs  if parent
       arr
     end
 
