@@ -7,6 +7,12 @@
       $("td").live('click', function() {
         $(this).closest('tr').toggleClass('highlight');
       });
+      $(".task .status").live('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var id = $(this).closest('tr').attr('id');
+        $(".in_"+id).toggle();
+      });
 
     %style
       :plain
@@ -111,6 +117,12 @@
           position: relative;
           top: 2px;
           background: #ddd; }
+
+        .parent .status {
+          cursor: pointer; }
+
+        .parent .status:hover {
+          box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1); }
 
         /* Progress */
         .progress .number {
@@ -223,7 +235,7 @@
 
       - list.walk do |task, recurse|
 
-        %tr{id: "task_#{task.id}", class: "level-#{task.level} #{task.tasks? ? 'parent' : 'leaf'} #{'root' if task.root?} #{'feature' if task.feature?} #{'milestone' if task.milestone?}"}
+        %tr{id: "task_#{task.id}", class: "level-#{task.level} #{task.tasks? ? 'parent' : 'leaf'} #{'root' if task.root?} #{'feature' if task.feature?} #{'milestone' if task.milestone?} #{task.breadcrumbs(false).map { |t| "in_task_#{t.id}" }.join(' ')}"}
           %td.task
             %span.status{class: "status-#{task.status}"}
             = task
