@@ -78,4 +78,21 @@ class MyTest < UnitTest
   test "Lookup" do
     assert @list['Milestone 1'] == @milestone
   end
+
+  test "Task#breadcrumbs" do
+    crumbs = @list['Milestone 1']['User login']['Signup'].breadcrumbs
+    assert crumbs == [
+      @list['Milestone 1'],
+      @list['Milestone 1']['User login'],
+      @list['Milestone 1']['User login']['Signup']
+    ]
+  end
+
+  test "Task#breadcrumbs(false)" do
+    crumbs = @list['Milestone 1']['User login']['Signup'].breadcrumbs(false)
+    assert crumbs == [
+      @list['Milestone 1'],
+      @list['Milestone 1']['User login']
+    ]
+  end
 end
