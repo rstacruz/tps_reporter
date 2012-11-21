@@ -177,7 +177,7 @@
           height: 2px;
           border-top-left-radius: 1px;
           border-bottom-left-radius: 1px;
-          margin-top: 7px; }
+          margin-top: 8px; }
 
         .sprint-marker {
           display: block;
@@ -189,7 +189,8 @@
           height: 6px;
           border-radius: 3px;
           float: left;
-          margin-top: 5px; }
+
+          margin-top: 6px; }
 
         .sprint-label {
           display: block;
@@ -243,7 +244,7 @@
             %td.sprints
               - if task.sprint?
                 %span.sprint-display
-                  %span.sprint-progress{style: "width: #{30*task.sprint.index+6}px"}
+                  %span.sprint-progress{style: "width: #{45*task.sprint.index+6}px"}
                   %span.sprint-marker{class: "status-#{task.status}"}
                   %span.sprint-label
                     = task.sprint.id
