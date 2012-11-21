@@ -332,6 +332,8 @@
 
         body.print table {
           box-shadow: none;
+          margin-left: 0;
+          margin-right: 0;
           border: 0; }
 
         /* Sprint table */
@@ -407,7 +409,7 @@
           %td.progress
             .bar
               - if task.percent > 0
-                %span{style: "width: #{task.percent.to_i}%"}
+                %span{style: "width: #{(task.percent*100).to_i}%"}
             %span.number= "#{(task.percent*100).to_i}%"
 
           %td.points
@@ -428,7 +430,7 @@
             %td.progress
               .bar{style: "width: #{sprint.points*100/max_points}%"}
                 - if sprint.percent > 0
-                  %span{style: "width: #{sprint.percent.to_i}%"}
+                  %span{style: "width: #{(sprint.percent*100).to_i}%"}
               %span.number= "#{(sprint.percent*100).to_i}%"
             %td.points
               %span.points.done= sprint.points_done.round(1).to_s.gsub(/\.0+$/,'')
