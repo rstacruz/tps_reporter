@@ -214,12 +214,11 @@
           color: #888;
           padding-left: 5px; }
 
-        .status-in_progress {
+        .status-bg-in_progress {
           background: #ea3; }
 
-        .status-done {
+        .status-bg-done {
           background: #393; }
-
 
   %body
 
@@ -235,9 +234,9 @@
 
       - list.walk do |task, recurse|
 
-        %tr{id: "task_#{task.id}", class: "level-#{task.level} #{task.tasks? ? 'parent' : 'leaf'} #{'root' if task.root?} #{'feature' if task.feature?} #{'milestone' if task.milestone?} #{task.breadcrumbs(false).map { |t| "in_task_#{t.id}" }.join(' ')}"}
+        %tr{id: "task_#{task.id}", class: "#{task.css_class}"}
           %td.task
-            %span.status{class: "status-#{task.status}"}
+            %span.status{class: "status-bg-#{task.status}"}
             = task
             - if task.pivotal_id
               %a.meta{href: task.pivotal_url}= "PT ##{task.pivotal_id}"
@@ -259,7 +258,7 @@
               - if task.sprint?
                 %span.sprint-display
                   %span.sprint-progress{style: "width: #{45*task.sprint.index+6}px"}
-                  %span.sprint-marker{class: "status-#{task.status}"}
+                  %span.sprint-marker{class: "status-bg-#{task.status}"}
                   %span.sprint-label
                     = task.sprint.id
 

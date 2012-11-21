@@ -161,11 +161,24 @@ module TPS
       filter_by { |t| t.contains?(&blk) || t.ancestor?(&blk) }
     end
 
+    # Returns a list of a task's ancestors, excluding the list.
     def breadcrumbs(include_self=true)
       arr = []
       arr += [self]  if include_self
-      arr += parent.breadcrumbs  if parent
+      arr = parent.breadcrumbs + arr  if parent
       arr
+    end
+
+    def css_class
+      [
+        "level-#{level}",
+        "status-#{status}",
+        (tasks? ? 'parent' : 'leaf'),
+        ('root' if root?),
+        ('feature' if feature?),
+        ('milestone' if milestone?),
+        breadcrumbs(false).map { |t| "in_task_#{t.id}" }
+      ].flatten.compact.join(' ')
     end
 
     def filter_by_sprint(sprint)
