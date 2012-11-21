@@ -61,19 +61,11 @@
         tr.feature td {
           border-top: solid 1px #888; }
 
-        tr .progress .bar {
+        tr.subtask .progress .bar {
           display: none; }
 
-        tr.milestone .progress .bar,
-        tr.feature .progress .bar {
-          display: block; }
-
-        tr td.points>* {
+        tr.subtask td.points>* {
           display: none; }
-
-        tr.milestone td.points>*,
-        tr.feature td.points>* {
-          display: inline; }
 
         /* Milestone */
         tr.milestone td {
@@ -275,3 +267,18 @@
         - recurse.call  if recurse
 
     %br
+
+    - if list.sprints?
+      %table.burndown
+        - max_points = list.sprints.values.map(&:points).max
+        - list.sprints.values.each do |sprint|
+          %tr
+            %td.name= sprint.name
+            %td.progress
+              .bar{style: "width: #{sprint.points*100/max_points}%"}
+                %span{style: "width: #{(sprint.percent*95+5).to_i}%"}
+              %span.number= "#{(sprint.percent*100).to_i}%"
+            %td.points
+              %span.points.done= sprint.points_done.round(1).to_s.gsub(/\.0+$/,'')
+              %span.of of
+              %span.points.total= sprint.points.round(1).to_s.gsub(/\.0+$/,'')

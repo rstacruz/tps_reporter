@@ -177,8 +177,13 @@ module TPS
         ('root' if root?),
         ('feature' if feature?),
         ('milestone' if milestone?),
+        ('subtask' if subtask?),
         breadcrumbs(false).map { |t| "in_task_#{t.id}" }
       ].flatten.compact.join(' ')
+    end
+
+    def subtask?
+      !feature? && !milestone?
     end
 
     def filter_by_sprint(sprint)

@@ -27,6 +27,10 @@ module TPS
       sublist.points_done
     end
 
+    def percent
+      sublist.percent
+    end
+
     def sublist
       @sublist ||= list.filter_by_sprint(self)
     end
