@@ -178,8 +178,16 @@ module TPS
         ('feature' if feature?),
         ('milestone' if milestone?),
         ('subtask' if subtask?),
+        ("sprint-#{sprint.slug}" if sprint?),
+        sprint_css_classes,
         breadcrumbs(false).map { |t| "in_task_#{t.id}" }
       ].flatten.compact.join(' ')
+    end
+
+    def sprint_css_classes
+      list.sprints.values.map { |sprint|
+        "has_sprint-#{sprint.slug}"  if contains_sprint?(sprint)
+      }.compact
     end
 
     def subtask?

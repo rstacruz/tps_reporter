@@ -4,14 +4,33 @@
     %script{src: "http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7/jquery.min.js"}
 
     :javascript
-      $("td").live('click', function() {
+      $("td").live('dblclick', function() {
         $(this).closest('tr').toggleClass('highlight');
       });
+
+      // Folding
       $(".task .status").live('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         var id = $(this).closest('tr').attr('id');
         $(".in_"+id).toggle();
+      });
+
+      // Filter by sprints
+      $('.sprints td').live('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var sprint = $(this).closest('tr').attr('data-sprint');
+
+        $(".tasks tr")
+          .hide()
+          .filter('.sprint-'+sprint+', .has_sprint-'+sprint).show();
+      });
+
+      // Unfilter
+      $('body').live('dblclick', function() {
+        $('.tasks tr').show();
       });
 
     %style
@@ -214,7 +233,7 @@
 
   %body
 
-    %table
+    %table.tasks
       %thead
         %tr
           %th.task Task
@@ -269,10 +288,10 @@
     %br
 
     - if list.sprints?
-      %table.burndown
+      %table.sprints
         - max_points = list.sprints.values.map(&:points).max
         - list.sprints.values.each do |sprint|
-          %tr
+          %tr{data: { sprint: sprint.slug }}
             %td.name= sprint.name
             %td.progress
               .bar{style: "width: #{sprint.points*100/max_points}%"}

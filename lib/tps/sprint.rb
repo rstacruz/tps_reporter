@@ -34,5 +34,15 @@ module TPS
     def sublist
       @sublist ||= list.filter_by_sprint(self)
     end
+
+    def slug
+      slugify id
+    end
+
+  private
+
+    def slugify(str)
+      str.scan(/[A-Za-z0-9]+/).join('_').downcase
+    end
   end
 end
