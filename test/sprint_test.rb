@@ -51,6 +51,14 @@ class SprintTest < UnitTest
     assert @list.sprints['s1'].index == 0
     assert @list.sprints['s2'].index == 1
   end
+
+  test "Sprint#points" do
+    assert @s1.points == 5
+  end
+
+  test "Sprint#points_done" do
+    assert @s1.points_done == 3
+  end
 end
 
  

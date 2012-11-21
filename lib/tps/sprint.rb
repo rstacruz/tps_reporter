@@ -18,5 +18,17 @@ module TPS
     def index
       list.sprints.keys.index id
     end
+
+    def points
+      sublist.points
+    end
+
+    def points_done
+      sublist.points_done
+    end
+
+    def sublist
+      @sublist ||= list.filter_by_sprint(self)
+    end
   end
 end

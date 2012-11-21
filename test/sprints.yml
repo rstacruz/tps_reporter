@@ -9,5 +9,10 @@ Version 1:
 
   Comments:
     _: [s1]
+    Creating: [done]
+    Deleting:
+
+  Posts:
+    _: [s1, done]
     Creating:
     Deleting:
