@@ -20,15 +20,15 @@ module TPS
     end
 
     def points
-      sublist.points
+      sublist ? sublist.points : 0.0
     end
 
     def points_done
-      sublist.points_done
+      sublist ? sublist.points_done : 0.0
     end
 
     def percent
-      sublist.percent
+      sublist ? sublist.percent : 0.0
     end
 
     def sublist
