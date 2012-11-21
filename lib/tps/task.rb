@@ -11,7 +11,6 @@ module TPS
     attr_reader :parent
     attr_reader :tags
     attr_reader :list     # the root TaskList
-    attr_reader :sprint
 
     def initialize(parent, name, data=nil, list)
       @name   = name
@@ -126,6 +125,10 @@ module TPS
 
     def sprint?
       !! sprint
+    end
+
+    def sprint
+      @sprint || (parent && parent.sprint)
     end
 
     def contains_sprint?(sprint)
