@@ -46,6 +46,11 @@ class SprintTest < UnitTest
     task = list['Version 1']['Comments']['Creating']
     assert ! task.nil?
   end
+
+  test "Sprint#index" do
+    assert @list.sprints['s1'].index == 0
+    assert @list.sprints['s2'].index == 1
+  end
 end
 
  

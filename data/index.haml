@@ -26,7 +26,6 @@
 
           background: #fafafa;
           margin: 0;
-          width: 600px;
           border-collapse: collapse; }
 
         table td, table th {
@@ -34,9 +33,10 @@
           border-top: solid 1px #eee; }
 
         /* Columns */
-        tr>.task { width: 50%; text-align: left; }
-        tr>.points { width: 9%; }
-        tr>.progress { width: 18%; }
+        tr>.task { width: auto; text-align: left; padding-right: 50px; }
+        tr>.points { width: 70px; }
+        tr>.progress { width: 100px; }
+        tr>.sprints { padding-right: 50px; }
         tr>.owner { display: none; }
 
         /* Indentation */
@@ -100,7 +100,7 @@
           background: #fafae0; }
 
         /* Status box */
-        span.status {
+        .status {
           display: inline-block;
           width: 12px;
           height: 12px;
@@ -111,12 +111,6 @@
           position: relative;
           top: 2px;
           background: #ddd; }
-
-        span.status.in_progress {
-          background: #ea3; }
-
-        span.status.done {
-          background: #393; }
 
         /* Progress */
         .progress .number {
@@ -166,6 +160,37 @@
         td.points .points.total {
           color: #888; }
 
+        /* Sprints */
+        .sprint-display {
+          background: #eee;
+          border-radius: 6px;
+          float: left;
+          height: 12px;
+          position: relative; }
+
+        .sprint-marker {
+          font-size: 0.8em;
+          height: 12px;
+          line-height: 12px;
+          padding: 0 7px;
+          border-radius: 6px;
+
+          background: #ddd;
+          color: white;
+          text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+
+          position: relative;
+          z-index: 1;
+
+          vertical-align: top; }
+
+        .status-in_progress {
+          background: #ea3; }
+
+        .status-done {
+          background: #393; }
+
+
   %body
 
     %table
@@ -173,6 +198,8 @@
         %tr
           %th.task Task
           %th.owner Owner
+          - if list.sprints?
+            %th.sprints Schedule
           %th.progress Progress
           %th.points Points
 
@@ -180,7 +207,7 @@
 
         %tr{class: "level-#{task.level} #{task.tasks? ? 'parent' : 'leaf'} #{'root' if task.root?} #{'feature' if task.feature?} #{'milestone' if task.milestone?}"}
           %td.task
-            %span.status{class: "#{task.status}"}
+            %span.status{class: "status-#{task.status}"}
             = task
             - if task.pivotal_id
               %a.meta{href: task.pivotal_url}= "PT ##{task.pivotal_id}"
@@ -196,6 +223,13 @@
 
           %td.owner
             = task.owner
+
+          - if list.sprints?
+            %td.sprints
+              - if task.sprint?
+                %span.sprint-display{style: "padding-left: #{40*task.sprint.index+6}px"}
+                  %span.sprint-marker{class: "status-#{task.status}"}
+                    = task.sprint.id
 
           %td.progress
             .bar

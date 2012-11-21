@@ -1,4 +1,5 @@
 module TPS
+  # The root node.
   class TaskList < Task
     attr_accessor :tasks
     attr_accessor :sprints
@@ -18,6 +19,10 @@ module TPS
       @sprints = Hash[*sprint_data.map { |id, name| [id, Sprint.new(id, name, self)] }.flatten]
 
       @tasks = data.map { |task, data| Task.new nil, task, data, self }
+    end
+
+    def sprints?
+      sprints.any?
     end
   end
 end
