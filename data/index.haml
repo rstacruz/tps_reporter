@@ -17,25 +17,32 @@
       });
 
       // Filter by sprints
-      $('.sprints td').live('click', function(e) {
+      $('.sprint-nav a').live('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
 
-        var sprint = $(this).closest('tr').attr('data-sprint');
+        var sprint = $(this).attr('data-sprint');
 
         $(".tasks tr")
           .hide()
           .filter('.sprint-'+sprint+', .has_sprint-'+sprint).show();
       });
 
-      // Unfilter
-      $('body').live('dblclick', function() {
+      $('[href="#all"]').live('click', function(e) {
+        e.preventDefault();
         $('.tasks tr').show();
       });
+
+      $('[href="#print"]').live('click', function(e) {
+        e.preventDefault();
+        $('body').addClass('print');
+      });
+
 
     %style
       :plain
         body {
+          background: #eee;
           padding: 0;
           margin: 0; }
 
@@ -46,11 +53,12 @@
           font-size: 9pt; }
 
         table {
-          border: solid 2px #aaa;
+          border: solid 10px #fff;
+          box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
           padding: 2px;
 
           background: #fafafa;
-          margin: 0;
+          margin: 20px auto;
           border-collapse: collapse; }
 
         table td, table th {
@@ -78,7 +86,7 @@
 
         tr.milestone td,
         tr.feature td {
-          border-top: solid 1px #888; }
+          border-top: solid 1px #ccc; }
 
         tr.subtask .progress .bar {
           display: none; }
@@ -123,7 +131,8 @@
           height: 12px;
           margin: 0 5px 0 0;
 
-          border-radius: 2px;
+          border-radius: 6px;
+          box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1), inset 1px 1px 1px rgba(0, 0, 0, 0.1);
 
           position: relative;
           top: 2px;
@@ -237,7 +246,100 @@
         .status-bg-done {
           background: #393; }
 
+        /* Navigation */
+        .nav {
+          padding: 10px 20px;
+          background: rgba(0, 0, 0, 0.04);
+          box-shadow: inset 0 -5px 3px -3px rgba(0, 0, 0, 0.06);
+
+          font-size: 8pt;
+          font-family: sans-serif; }
+
+        .nav:after {
+          content: '';
+          display: table;
+          clear: both; }
+
+        .nav ul, .nav li, .nav h4 {
+          margin: 0;
+          padding: 0;
+          list-style-type: none; }
+
+        .nav ul, .nav li, .nav h4, .nav a, .nav .segment {
+          float: left; }
+
+        .nav h4 {
+          padding: 1px;
+          color: #888;
+          text-shadow: 0 1px 0 rgba(250, 250, 250, 0.4); }
+
+        .nav ul {
+          margin-left: 10px; }
+
+        .nav .segment {
+          margin: 0 30px 0 0; }
+
+        .nav h4,
+        .nav a {
+          height: 24px;
+          line-height: 24px; }
+
+        .nav a {
+          color: #888;
+          text-shadow: 0 1px 0 rgba(250, 250, 250, 0.4);
+          text-decoration: none;
+
+          display: block;
+          padding: 0 10px;
+          border: solid 1px rgba(0, 0, 0, 0.1);
+          border-radius: 3px; }
+
+        .nav ul a {
+          border-radius: 0;
+          border-left-width: 0; }
+
+        .nav a:hover {
+          background: rgba(250, 250, 250, 0.2); }
+
+        .nav ul li:first-child a {
+          border-top-left-radius: 3px;
+          border-bottom-left-radius: 3px;
+          border-left-width: 1px; }
+          
+        .nav ul li:last-child a {
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 3px; }
+
+        /* Print mode */
+        body.print {
+          background: transparent; }
+
+        body.print .nav {
+          display: none; }
+
+        body.print table {
+          box-shadow: none;
+          border: 0; }
+
   %body
+    .nav
+      .segment
+        - if list.sprints?
+          %h4 Filter by:
+          %ul.sprint-nav
+            - list.sprints.values.each do |sprint|
+              %li
+                %a{href: "#sprint-#{sprint.slug}", data: { sprint: sprint.slug }}= sprint.id
+
+          %ul
+            %li
+              %a{href: '#all'} All
+
+      .segment
+        %ul
+          %li
+            %a{href: '#print'} Export mode
+
 
     %table.tasks
       %thead
