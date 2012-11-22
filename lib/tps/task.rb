@@ -65,8 +65,7 @@ module TPS
 
       @tasks = tasks.map { |task, data| Task.new self, task, data, self.list }  if tasks
 
-      n = @name.to_s.downcase
-      @milestone = root? && (n.include?('milestone') || n.include?('version'))
+      @milestone = root? && is_milestone?(@name)
 
       @id = list.get_id  if list
     end
@@ -277,6 +276,15 @@ module TPS
 
       tpl = Tilt.new(template)
       tpl.evaluate({}, list: self)
+    end
+
+  private
+
+    def is_milestone?(str)
+      str = str.to_s.downcase
+      str.match(/^milestone|milestone$/i) ||
+        str.match(/^release|release$/i) ||
+        str.match(/^version|version$/i)
     end
   end
 end
