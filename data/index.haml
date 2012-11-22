@@ -52,6 +52,16 @@
           line-height: 13.5pt;
           font-size: 9pt; }
 
+        h2.table-header {
+          padding: 0 0 20px 0;
+          margin: 20px auto;
+          text-align: center;
+          font-family: helvetica neue, sans-serif;
+          font-size: 28pt;
+          font-weight: 100;
+          color: #888;
+          text-shadow: 0 1px 0 rgba(250, 250, 250, 0.7); }
+
         table {
           border: solid 10px #fff;
           box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
@@ -334,6 +344,7 @@
           padding: 0;
           background: transparent; }
 
+        body.print .table-header,
         body.print .nav {
           display: none; }
 
@@ -372,6 +383,8 @@
           %li
             %a{href: '#print'} Export mode
 
+
+    %h2.table-header Tasks
 
     %table.tasks
       %thead
@@ -429,6 +442,8 @@
     %br
 
     - if list.sprints?
+      %h2.table-header Schedule
+
       %table.sprints
         - max_points = list.sprints.values.map(&:points).max
         - list.sprints.values.each do |sprint|
