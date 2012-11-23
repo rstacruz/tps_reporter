@@ -3,6 +3,7 @@ module TPS
   class TaskList < Task
     attr_accessor :tasks
     attr_accessor :sprints
+    attr_accessor :trello_board_url
 
     def initialize(options)
       super nil, nil, nil, nil
@@ -17,6 +18,8 @@ module TPS
 
       sprint_data = data.delete('Sprints') || {}
       @sprints = Hash[*sprint_data.map { |id, name| [id, Sprint.new(id, name, self)] }.flatten]
+
+      @trello_board_url = data.delete('Trello URL')
 
       @tasks = data.map { |task, data| Task.new nil, task, data, self }
     end

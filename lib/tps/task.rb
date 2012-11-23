@@ -220,7 +220,11 @@ module TPS
     def trello_url
       if trello_id
         id = trello_id.match(/([A-Za-z0-9]+)$/) && $1.strip
-        "https://trello.com/c/#{id}"
+        if list.trello_board_url && id.match(/^[0-9]+/)
+          "#{list.trello_board_url}/#{id}"
+        else
+          "https://trello.com/c/#{id}"
+        end
       end
     end
 
