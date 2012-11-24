@@ -384,6 +384,25 @@
             %a{href: '#print'} Export mode
 
 
+    - if list.sprints?
+      %h2.table-header Schedule
+
+      %table.sprints
+        - max_points = list.sprints.values.map(&:points).max
+        - list.sprints.values.each do |sprint|
+          %tr{data: { sprint: sprint.slug }}
+            %td.name= sprint.name
+            %td.progress
+              .bar{style: "width: #{sprint.points*100/max_points}%"}
+                - if sprint.percent > 0
+                  %span{style: "width: #{(sprint.percent*100).to_i}%"}
+              %span.number= "#{(sprint.percent*100).to_i}%"
+            %td.points
+              %span.points.done= sprint.points_done.round(1).to_s.gsub(/\.0+$/,'')
+              %span.of of
+              %span.points.total= sprint.points.round(1).to_s.gsub(/\.0+$/,'')
+      %br
+
     %h2.table-header Tasks
 
     %table.tasks
@@ -439,22 +458,3 @@
 
         - recurse.call  if recurse
 
-    %br
-
-    - if list.sprints?
-      %h2.table-header Schedule
-
-      %table.sprints
-        - max_points = list.sprints.values.map(&:points).max
-        - list.sprints.values.each do |sprint|
-          %tr{data: { sprint: sprint.slug }}
-            %td.name= sprint.name
-            %td.progress
-              .bar{style: "width: #{sprint.points*100/max_points}%"}
-                - if sprint.percent > 0
-                  %span{style: "width: #{(sprint.percent*100).to_i}%"}
-              %span.number= "#{(sprint.percent*100).to_i}%"
-            %td.points
-              %span.points.done= sprint.points_done.round(1).to_s.gsub(/\.0+$/,'')
-              %span.of of
-              %span.points.total= sprint.points.round(1).to_s.gsub(/\.0+$/,'')
