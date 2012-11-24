@@ -1,3 +1,20 @@
+v0.2.0 - Nov 24, 2012
+---------------------
+
+### New features:
+
+  * Added support for sprints! See `GUIDE.md` for info.
+  * Trello card linking support! See `GUIDE.md` again.
+  * Redesigned HTML output.
+  * Added "Export mode" in the HTML output.
+
+### Internals:
+
+  * Implement @task['name'] lookup.
+  * Implement Task#id.
+  * Sprints: add a sprint model.
+  * Task: implement #filter, #filter_by, #contains_sprint?
+
 v0.0.3 - Nov 21, 2012
 ---------------------
 
