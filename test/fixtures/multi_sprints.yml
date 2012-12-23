@@ -1,0 +1,10 @@
+Sprints:
+  w1: Week 1
+  w2: Week 2
+  w3: Week 3
+  w4: Week 4
+
+Account management:
+  Login: [w1, w2]
+  Signup: [w1, 5pts]
+  Register: [w2]
