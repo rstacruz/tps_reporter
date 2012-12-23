@@ -1,7 +1,7 @@
 require File.expand_path('../test_helper', __FILE__)
 
 class HtmlTest < UnitTest
-  TESTS = %w[hello.yml multi_sprints.yml]
+  TESTS = %w[hello.yml multi_sprints.yml sprint_points.yml sprints.yml]
 
   TESTS.each do |yml_file|
     context yml_file do

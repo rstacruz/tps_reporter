@@ -438,12 +438,12 @@
 
           - if list.sprints?
             %td.sprints
-              - if task.sprint?
+              - if task.sprints?
                 %span.sprint-display
-                  %span.sprint-progress{style: "width: #{45*task.sprint.index+6}px"}
+                  %span.sprint-progress{style: "width: #{45*task.sprints[0].index+6}px"}
                   %span.sprint-marker{class: "status-bg-#{task.status}"}
                   %span.sprint-label
-                    = task.sprint.id
+                    = task.sprints[0].id
 
           %td.progress
             .bar
