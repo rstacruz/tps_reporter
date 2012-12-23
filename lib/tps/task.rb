@@ -66,8 +66,6 @@ module TPS
 
       @tasks = tasks.map { |task, data| Task.new self, task, data, self.list }  if tasks
 
-      @milestone = root? && is_milestone?(@name)
-
       @id = list.get_id  if list
     end
 
@@ -271,7 +269,7 @@ module TPS
     end
 
     def milestone?
-      !! @milestone
+      level == 0
     end
 
     def leaf?
@@ -317,15 +315,6 @@ module TPS
       end
 
       str
-    end
-
-  private
-
-    def is_milestone?(str)
-      str = str.to_s.downcase
-      str.match(/^milestone|milestone$/i) ||
-        str.match(/^release|release$/i) ||
-        str.match(/^version|version$/i)
     end
   end
 end

@@ -71,6 +71,12 @@ class MyTest < UnitTest
     assert @milestone.milestone?
   end
 
+  test "Not milestone" do
+    @milestone.tasks.each do |t|
+      assert ! t.milestone?
+    end
+  end
+
   test "HTML works" do
     assert @list.to_html
   end
