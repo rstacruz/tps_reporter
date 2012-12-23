@@ -8,6 +8,6 @@ class UnitTest < Test::Unit::TestCase
   end
 
   def fixture_root
-    File.expand_path('../', __FILE__)
+    File.expand_path('../fixtures', __FILE__)
   end
 end
