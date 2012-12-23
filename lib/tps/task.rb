@@ -282,6 +282,26 @@ module TPS
       tpl.evaluate({}, list: self)
     end
 
+    def inspekt
+      [
+        root? ? "__Root__" : name,
+        ("(%ipt)" % [points]),
+        ("- %s" % [sprint.id]  if sprint?)
+      ].compact.join(" ")
+    end
+
+    # Returns it as a simple markdown string. Great for tests.
+    #
+    def to_markdown
+      str = " - #{inspekt}"
+
+      if tasks?
+        str += "\n" + tasks.map { |t| t.to_markdown.gsub(/^/, "  ") }.join("\n")
+      end
+
+      str
+    end
+
   private
 
     def is_milestone?(str)
