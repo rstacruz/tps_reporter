@@ -1,6 +1,9 @@
 Sprints:
   s1: One
   s2: Two
+  s3: Three
+  s4: Four
+  s5: Five
 
 First release:
   Account management:
@@ -9,6 +12,13 @@ First release:
     Signup: [s2]
     Register: [s2]
     Forgot password:
+
+  Blogging:
+    _: [s3]
+    Post creation:
+      _: [s4]
+      Database models: [s5]
+      Publication date: [2.5pts]
 
 
 
