@@ -85,6 +85,23 @@ class MyTest < UnitTest
     assert_equal @milestone, @list['Milestone 1']
   end
 
+  context "Task#find" do
+    test "self name" do
+    end
+
+    test "descendant" do
+      assert_equal @list['Milestone 1'], @list.find('Milestone 1')
+    end
+
+    test "Grand-child" do
+      assert_equal @list.tasks[0].tasks[1], @list.find('User login')
+    end
+
+    test "non-existent" do
+      assert_equal nil, @list.find("X")
+    end
+  end
+
   test "Task#breadcrumbs" do
     crumbs = @list['Milestone 1']['User login']['Signup'].breadcrumbs
     expected = [

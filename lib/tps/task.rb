@@ -268,6 +268,19 @@ module TPS
       root? or parent.milestone?
     end
 
+    # Finds a task named `name` in the task's descendants.
+    # Returns a `Task` instance.
+    #
+    #     list.find("Login")
+    #
+    #     # Accounts:
+    #     #   Login:
+    #     
+    def find(name)
+      return self  if name == self.name
+      tasks.inject(nil) { |result, task| result || task.find(name) }
+    end
+
     def milestone?
       level == 0
     end
