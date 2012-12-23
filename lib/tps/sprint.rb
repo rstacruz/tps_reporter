@@ -20,7 +20,7 @@ module TPS
     end
 
     def points
-      sublist ? sublist.points : 0.0
+      sublist ? sublist.points_for(self) : 0.0
     end
 
     def points_done

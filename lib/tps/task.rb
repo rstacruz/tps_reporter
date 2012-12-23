@@ -84,12 +84,20 @@ module TPS
     end
 
     def points
-      if @points
-        @points
-      elsif tasks?
+      if tasks?
         tasks.inject(0.0) { |pts, task| pts + task.points }
       else
-        1.0
+        @points || 1.0
+      end
+    end
+
+    def points_for(sprint)
+      if tasks?
+        tasks.inject(0.0) { |pts, task| pts + task.points_for(sprint) }
+      elsif sprint? && self.sprint.id == sprint.id
+        @points || 1.0
+      else
+        0
       end
     end
 
