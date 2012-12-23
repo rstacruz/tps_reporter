@@ -14,6 +14,6 @@ Account management:
 
 Segments:
   Disjointed: [w1, w2, w4]
-  Disjointed with head: [w1, w3, w4]
+  Disjointed with head: [w1, w3, w4, 50%]
   Continuous: [w1, w2, w3, w4]
   Disjointed with two segments: [w2, w3, w5, w6]

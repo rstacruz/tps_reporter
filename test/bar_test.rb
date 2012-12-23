@@ -42,8 +42,6 @@ class BarTest < UnitTest
     test "disjointed" do
       task = @list.find("Disjointed")
       bar = task.bar_formatter
-      require 'json'
-      jj bar.segments
     end
   end
 end

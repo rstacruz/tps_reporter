@@ -40,11 +40,19 @@ module TPS
         span = range.max - range.min + 1
         w = range.min-last_max-1
 
-        re << [ :line, [left_pad + segment_width * w, sprints] ]
-        re << [ :marker, [segment_width * span, sprints] ]
+        line_length = segment_width * w + inner_pad
+
+        marker_length = segment_width * span - inner_pad
+
+        re << [ :line, [line_length, sprints] ]
+        re << [ :marker, [marker_length, sprints] ]
 
         last_max = range.max
       end
+
+      # Last line
+      butal = all_sprints.length - sprints.last.index - 1
+      re << [ :line, segment_width * butal + inner_pad ]
 
       re
     end
@@ -56,7 +64,7 @@ module TPS
   private
 
     def segment_width() 35; end
-    def left_pad() 6; end
+    def inner_pad() 12; end
 
     # Connects an array of numeric indices. Returns an array of ranges.
     #

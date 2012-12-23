@@ -225,12 +225,21 @@
           display: block;
           float: left;
 
-          background-color: #eee;
-          background: -webkit-linear-gradient(left, #eee, #ddd);
-          height: 2px;
+          height: 1px;
           border-top-left-radius: 1px;
           border-bottom-left-radius: 1px;
           margin-top: 8px; }
+
+        /*
+         * .sprint-progress {
+         *   background-color: #ddd; }
+         * .sprint-progress:first-child {
+         *   background: -webkit-linear-gradient(left, #eee, #ddd); }
+         * .sprint-progress:last-child {
+         *   background: -webkit-linear-gradient(left, #ddd, #eee); }
+         */
+         .sprint-progress:first-child {
+           background: -webkit-linear-gradient(left, #eee, #ddd); }
 
         .sprint-marker {
           display: block;
@@ -238,26 +247,34 @@
 
           background: #ccc;
 
-          width: 6px;
-          height: 6px;
-          border-radius: 3px;
-          float: left;
-
-          margin-top: 6px; }
-
-        .sprint-label {
-          display: block;
+          min-width: 6px;
+          height: 12px;
+          line-height: 11px;
+          border-radius: 6px;
           float: left;
 
           font-size: 7pt;
-          color: #888;
-          padding-left: 5px; }
+          font-weight: bold;
+          color: #555;
+
+          text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+          text-align: center;
+
+          margin-top: 3px; }
+
+        .sprint-marker .dash {
+          opacity: 0.5; }
 
         .status-bg-in_progress {
           background: #ea3; }
 
         .status-bg-done {
           background: #393; }
+
+        .status-bg-done,
+        .status-bg-in_progress {
+          color: white;
+          text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.4); }
 
         /* Navigation */
         body {
@@ -447,9 +464,16 @@
                       %span.sprint-progress{style: "width: #{size}px"}
                     - elsif type == :marker
                       %span.sprint-marker{class: "status-bg-#{task.status}", style: "width: #{size}px"}
+                        - if sprints.length > 1
+                          = sprints.first.id
+                          %span.dash<>= "&ndash;"
+                          = sprints.last.id
 
-                  %span.sprint-label
-                    = bar.label
+                        - else
+                          = sprints.first.id
+
+                  -# %span.sprint-label
+                  -#   = bar.label
 
           %td.progress
             .bar
