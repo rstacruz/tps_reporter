@@ -84,10 +84,12 @@ module TPS
     end
 
     def points
-      if tasks?
+      if @points
+        @points
+      elsif tasks?
         tasks.inject(0.0) { |pts, task| pts + task.points }
       else
-        @points || 1.0
+        1.0
       end
     end
 
