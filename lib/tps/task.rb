@@ -329,5 +329,10 @@ module TPS
 
       str
     end
+
+    # Returns the presenter
+    def bar_formatter
+      TPS::BarFormatter.new self
+    end
   end
 end

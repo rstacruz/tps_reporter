@@ -22,10 +22,11 @@ require 'tilt'
 module TPS
   ROOT = File.expand_path('../../', __FILE__)
 
-  autoload :Task,        'tps/task'
-  autoload :TaskList,    'tps/task_list'
-  autoload :CliReporter, 'tps/cli_reporter'
-  autoload :Sprint,      'tps/sprint'
+  autoload :Task,         'tps/task'
+  autoload :TaskList,     'tps/task_list'
+  autoload :CliReporter,  'tps/cli_reporter'
+  autoload :Sprint,       'tps/sprint'
+  autoload :BarFormatter, 'tps/bar_formatter'
 
   require 'tps/version'
 

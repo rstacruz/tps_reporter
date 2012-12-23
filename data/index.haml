@@ -438,12 +438,18 @@
 
           - if list.sprints?
             %td.sprints
-              - if task.sprints?
+              - bar = TPS::BarFormatter.new(task)
+              - if bar.visible?
+
                 %span.sprint-display
-                  %span.sprint-progress{style: "width: #{45*task.sprints[0].index+6}px"}
-                  %span.sprint-marker{class: "status-bg-#{task.status}"}
+                  - bar.segments.each do |type, (size, sprints)|
+                    - if type == :line
+                      %span.sprint-progress{style: "width: #{size}px"}
+                    - elsif type == :marker
+                      %span.sprint-marker{class: "status-bg-#{task.status}", style: "width: #{size}px"}
+
                   %span.sprint-label
-                    = task.sprints[0].id
+                    = bar.label
 
           %td.progress
             .bar

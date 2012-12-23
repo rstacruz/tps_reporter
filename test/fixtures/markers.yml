@@ -1,0 +1,19 @@
+
+Sprints:
+  w0: Week 0
+  w1: Week 1
+  w2: Week 2
+  w3: Week 3
+  w4: Week 4
+  w5: Week 5
+  w6: Week 6
+
+Account management:
+  Login: [w2, w3]
+  Signup: [w3, 5pts]
+
+Segments:
+  Disjointed: [w1, w2, w4]
+  Disjointed with head: [w1, w3, w4]
+  Continuous: [w1, w2, w3, w4]
+  Disjointed with two segments: [w2, w3, w5, w6]

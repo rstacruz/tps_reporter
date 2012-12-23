@@ -39,6 +39,14 @@ module TPS
       slugify id
     end
 
+    def inspect
+      '#<%s %s ("%s")>' % [ self.class.name, id, name ]
+    end
+
+    def to_s
+      inspect
+    end
+
   private
 
     def slugify(str)
