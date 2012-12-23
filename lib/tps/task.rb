@@ -59,7 +59,8 @@ module TPS
           @tags.push t[1..-1]
         # Sprint name
         elsif list && list.sprints[t]
-          @sprint = list.sprints[t]
+          @sprints ||= Array.new
+          @sprints << list.sprints[t]
         end
       end
 
@@ -96,7 +97,7 @@ module TPS
     def points_for(sprint)
       if tasks?
         tasks.inject(0.0) { |pts, task| pts + task.points_for(sprint) }
-      elsif sprint? && self.sprint.id == sprint.id
+      elsif sprints? && self.sprints.include?(sprint)
         @points || 1.0
       else
         0
@@ -135,16 +136,22 @@ module TPS
       tasks.any?
     end
 
-    def sprint?
-      !! sprint
+    def sprints?
+      sprints.any?
     end
 
-    def sprint
-      @sprint || (parent && parent.sprint)
+    def sprints
+      if @sprints
+        @sprints
+      elsif parent
+        parent.sprints
+      else
+        Array.new
+      end
     end
 
     def contains_sprint?(sprint)
-      contains? { |t| t.sprint == sprint }
+      contains? { |t| t.sprints.include?(sprint) }
     end
 
     # Filters a task list by tasks that match a given block, preserving its
@@ -187,7 +194,7 @@ module TPS
         ('feature' if feature?),
         ('milestone' if milestone?),
         ('subtask' if subtask?),
-        ("sprint-#{sprint.slug}" if sprint?),
+        (sprints.map { |s| "sprint-#{s.slug}" } if sprints?),
         sprint_css_classes,
         breadcrumbs(false).map { |t| "in_task_#{t.id}" }
       ].flatten.compact.join(' ')
@@ -204,7 +211,7 @@ module TPS
     end
 
     def filter_by_sprint(sprint)
-      filter { |t| t.sprint == sprint }
+      filter { |t| t.sprints.include?(sprint) }
     end
 
     # Works like #filter, but only preserves ancestors if they match.
