@@ -1,3 +1,17 @@
+v0.2.1 - Dec 23, 2012
+---------------------
+
+### Fixes:
+
+  * Fixed bug where a parent task is assigned to one sprint, and its children in 
+  another, points for the sprints aren't reported properly.
+
+### Internals:
+
+  * Task: implement `Task#to_markdown` for testing.
+  * Tests: move fixtures to `test/fixtures/`.
+  * Tests: use `assert_equal`.
+
 v0.2.0 - Nov 24, 2012
 ---------------------
 
