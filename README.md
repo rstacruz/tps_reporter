@@ -86,3 +86,18 @@ looks like this:
 ![Comamnd line reporter][cli]
 
 [cli]: https://img.skitch.com/20120204-ccb2guerhrjmj3rht3e4ies4ur.png
+
+Development notes
+-----------------
+
+Releasing the gem:
+
+    $ vim lib/tps/version.rb   # Bump version
+    $ git clog                 # Mini utility to write changelog
+    $ vim HISTORY.md           # Fix up changelog
+    $ git commit -m "vX.X.X."
+    $ git release              # github.com/visionmedia/git-extras
+  
+    $ rm *.gem
+    $ gem build *.gemspec
+    $ gem push *.gem
