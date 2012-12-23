@@ -32,7 +32,7 @@ module TPS
     def segments
       re = Array.new
 
-      last_max = 0
+      last_max = -1
 
       segs = index_segments
       segs.each_with_index do |range, i|
