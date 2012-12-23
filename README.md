@@ -95,8 +95,7 @@ Releasing the gem:
     $ vim lib/tps/version.rb   # Bump version
     $ git clog                 # Mini utility to write changelog
     $ vim HISTORY.md           # Fix up changelog
-    $ git commit -m "vX.X.X."
-    $ git release              # github.com/visionmedia/git-extras
+    $ git release v0.X.X       # github.com/visionmedia/git-extras
   
     $ rm *.gem
     $ gem build *.gemspec
