@@ -13,7 +13,7 @@ Install TPS (Ruby):
 
     $ gem install tps_reporter
 
-...then generate a sample file. (or create `tasks.yml` based on [this sample
+...then generate a sample file. (or create `tasks.taskpaper` based on [this sample
 file.][sample])
 
     $ tps sample
