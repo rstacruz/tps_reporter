@@ -10,6 +10,8 @@ module TPS
 
       data = if options[:yaml]
                YAML::load_file options[:yaml]
+             elsif options[:taskpaper]
+               TaskPaperShim.load options[:taskpaper]
              elsif options[:data]
                options[:data]
              else

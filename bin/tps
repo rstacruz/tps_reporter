@@ -102,7 +102,7 @@ private
   def tasks_filename
     ARGV.extract('-f') ||
     ENV['TPS_FILE'] ||
-    Dir['./{Tasksfile,tasks.yml}'].first ||
+    Dir['./{Tasksfile,tasks.yml,tasks.taskpaper}'].first ||
     "tasks.yml"
   end
 
@@ -122,7 +122,11 @@ private
     end
 
     begin
-      TPS::TaskList.new yaml: fn
+      if fn.match(/\.taskpaper/)
+        TPS::TaskList.new taskpaper: fn
+      else
+        TPS::TaskList.new yaml: fn
+      end
     rescue Psych::SyntaxError => e
       err "Parse error: #{e.message}"
       exit 256
