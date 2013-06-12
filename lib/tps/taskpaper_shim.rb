@@ -9,10 +9,10 @@ module TPS::TaskPaperShim
   end
 
   def work(node)
-    return nil if node.note?
     return nil if node.tags.empty? && node.children.empty?
     hash = {}
 
+    # Load tags
     tags = node.tags.map { |s| s.gsub(/^@/, '').gsub(/_/, ' ') }
     if tags.any?
       if node.children.any?
@@ -22,11 +22,13 @@ module TPS::TaskPaperShim
       end
     end
 
+    # Load children
     node.children.each do |child|
       text = child.plain_text
+
       if node.plain_text == "Sprints"
         text.match(/^(.*?): (.*)$/) && hash[$1] = $2
-      else
+      elsif !child.note?
         hash[text] = work(child)
       end
     end
