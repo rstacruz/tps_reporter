@@ -1,3 +1,8 @@
+v0.4.0 - June 13, 2013
+----------------------
+
+  * TaskPaper support! Tasks are now stored in `tasks.taskpaper` by default.
+
 v0.3.0 - June 13, 2013
 ----------------------
 

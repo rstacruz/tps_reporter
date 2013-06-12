@@ -11,26 +11,25 @@ List down the sprints.
 
 Then simply add the sprint ID to your tasks.
 
-    # tasks.yml
+    # tasks.taskpaper
     Sprints:
       s1: Sprint 1 (Nov 1-15)
       s2: Sprint 2 (Nov 16-30)
       s3: Sprint 3 (Dec 1-15)
 
     Beta release:
-      Account:
-        Login: [s1]
-        Logout: [s1, done]
-        Signup: [s2]
+      - Account
+        - Login @s1
+        - Logout @s1 @done
+        - Signup @s2
 
 It's also recursive--you can put sprints in your parent tasks under `_`:
 
     Beta release:
-      Blog:
-        _: [s3]
-        Create posts:
-        Read posts:
-        Delete posts:
+      - Blog @s3
+        - Create posts
+        - Read posts
+        - Delete posts
 
 Trello card linking support
 ---------------------------
@@ -40,8 +39,8 @@ the short URL ID for the Trello card. You can see the short ID in Trello by
 clicking "more..." inside the card popup.
 
     Beta release:
-      Blog: [tr/Xh3pAGp1]
-      Account management:
+      - Blog @tr/Xh3pAGp1
+      - Account management
 
 You can also link the card numbers, but you have to define the main Trello board 
 URL. Simply add `Trello URL: ____` to the top of the file.
