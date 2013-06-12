@@ -1,0 +1,48 @@
+Milestone 1:
+	- First task @25%
+
+	User login:
+		- Login
+		- Signup
+
+	Overridden percent: @50%
+		- one @done
+		- two @done
+		- three @done
+
+	Explicit points: @15pt
+		- one @done
+		- two @done
+		- three @done
+		- four
+
+	Compound points:
+		- one
+		- two
+		three:
+			- sub1 @3pts @done
+			- sub2
+
+	Point rescaling:
+		Has 6 sub points, but will be rescaled to 8.
+		That is, the done "3" point task is actually worth 4 points.
+
+		one: @8pts
+			- sub1 @3pts @done
+			- sub2 @1pt
+			- sub3 @1pt
+			- sub4 @1pt
+
+	In progress:
+		- one
+		- two @in_progress
+
+	Progress override: @50%
+		#7
+		It's supposed to be 50% done because of it's subtasks, but
+		Defining our own percentage overrides that.
+
+		- one @done
+		- two
+
+Milestone 2:
