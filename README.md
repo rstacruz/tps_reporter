@@ -1,6 +1,6 @@
 # Task progress sheet reporter
 
-![TPS report](https://img.skitch.com/20120203-nr24dn9u7euchmqa516718unpe.png)
+![TPS report](http://i.imgur.com/AA7LNTR.png)
 
 We often need to make regular reports of things done for our projects at work. I
 hate doing these by hand. This tool lets us build these reports from YAML files
