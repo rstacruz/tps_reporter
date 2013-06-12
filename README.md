@@ -27,47 +27,43 @@ Edit it, then generate the report:
 Format
 ------
 
-The tasks file, usually `tasks.yml`, is in YAML format.
+The tasks file, usually `tasks.taskpaper`, is in Taskpaper format.
 
-Tasks are always keys (ie, they all end in `:`). They can be nested as far
-as you like.
+They're simply a hierarchy of projects and tasks.
 
 ``` yaml
 Edit users:
-  Register and signup:
-  Login and logout:
+  - Register and signup
+  - Login and logout
 ```
 
-To define task metadata for *leaf* tasks, add it as an array inside the task:
+You can tag some projects or tasks.
 
 ``` yaml
-Manage employees: [done]
+Facebook connect:
+  - Register via Facebook @done
+  - Capture email
+
+Manage employees: @done
+  - Create user
+  - Edit user
 ```
 
-Or for *branch* tasks, add it under the `_` task:
+The following tags are recognized:
 
-``` yaml
-Manage employees:
-  _: [done]
-  Creating employees:
-  Editing employees:
-```
-
-The metadata is just a simple YAML array that you can conveniently define using
-`[tag1, tag2, etc]`.  Allowed metadata are:
-
- - `done`
- - `in progress`
- - `pt/2839478` *(Pivotal tracker ID. Links to a Pivotal tracker story.)*
- - `tr/LabxGP3` *(Trello card short name. Links to a Trello card.)*
- - `0pt` *(points; influences percentage. needs to end in __pt__ or __pts__.)*
- - `10%` *(task progress. implies __in progress__.)*
+ - `@done`
+ - `@in_progress`
+ - `@pt/2839478` *(Pivotal tracker ID. Links to a Pivotal tracker story.)*
+ - `@tr/LabxGP3` *(Trello card short name. Links to a Trello card.)*
+ - `@0pt` *(points; influences percentage. needs to end in __pt__ or __pts__.)*
+ - `@10%` *(task progress. implies __in progress__.)*
 
 Example:
 
 ``` yaml
-  Creating employees: [40%]
-  Editing employees: [done, 2pts]
+Employee management:
+  - Creating employees @40%
+  - Editing employees @done @2pts
 ```
 
 Exporting to PDF or image
@@ -86,3 +82,11 @@ looks like this:
 ![Comamnd line reporter][cli]
 
 [cli]: https://img.skitch.com/20120204-ccb2guerhrjmj3rht3e4ies4ur.png
+
+Old YAML syntax
+---------------
+
+The old (v0.3.0) YAML syntax is still supported, see the [v0.3.0 readme] for 
+more info.
+
+[v0.3.0 readme]: http://github.com/rstacruz/tps_reporter/blob/v0.3.0/README.md
