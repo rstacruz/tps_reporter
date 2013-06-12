@@ -62,7 +62,7 @@ module TPS::Command
       exit 130
     end
 
-    FileUtils.cp TPS.root('data', 'sample.yml'), fn
+    FileUtils.cp TPS.root('data', 'sample.taskpaper'), fn
     info "Created '#{fn}'."
     info "Edit it, then use `tps html` to generate HTML from it."
   end
@@ -103,7 +103,7 @@ private
     ARGV.extract('-f') ||
     ENV['TPS_FILE'] ||
     Dir['./{Tasksfile,tasks.yml,tasks.taskpaper}'].first ||
-    "tasks.yml"
+    "tasks.taskpaper"
   end
 
   def output(&blk)
