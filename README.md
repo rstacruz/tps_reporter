@@ -83,6 +83,33 @@ looks like this:
 
 [cli]: https://img.skitch.com/20120204-ccb2guerhrjmj3rht3e4ies4ur.png
 
+Sprints
+-------
+
+You can define sprints to help you see the workload of each sprint. First, 
+define your sprints on top of your file like so (this is a TaskPaper project 
+with notes):
+
+``` yaml
+Sprints:
+  s1: Sprint 1 (May 1)
+  s2: Sprint 2 (May 8)
+  s3: Sprint 3 (May 15)
+```
+
+The names are all arbitrary; `s1`..`s3` is just used here for convention; feel
+free to use any string you like. (say, `week1`..`week7` works well for some
+projects.)
+
+Then use the names as tags (in this case, `@s1`, `@s2`):
+
+``` yaml
+Blog:
+  - Writing articles @s1
+  - Publishing @s2
+```
+
+
 Old YAML syntax
 ---------------
 
