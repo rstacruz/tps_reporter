@@ -14,7 +14,7 @@ Install TPS (Ruby):
     $ gem install tps_reporter
 
 ...then generate a sample file. (or create `tasks.yml` based on [this sample
-file.][s])
+file.][sample])
 
     $ tps sample
 
@@ -22,12 +22,12 @@ Edit it, then generate the report:
 
     $ tps open
 
-[s]: https://github.com/rstacruz/tps_reporter/blob/master/data/sample.yml
+[sample]: https://github.com/rstacruz/tps_reporter/blob/master/data/sample.taskpaper
 
 Format
 ------
 
-The tasks file, usually `tasks.taskpaper`, is in Taskpaper format.
+The tasks file, usually `tasks.taskpaper`, is in [TaskPaper] format. 
 
 They're simply a hierarchy of projects and tasks.
 
@@ -117,3 +117,4 @@ The old (v0.3.0) YAML syntax is still supported, see the [v0.3.0 readme] for
 more info.
 
 [v0.3.0 readme]: http://github.com/rstacruz/tps_reporter/blob/v0.3.0/README.md
+[TaskPaper]: http://www.hogbaysoftware.com/products/taskpaper

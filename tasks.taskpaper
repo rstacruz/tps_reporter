@@ -4,19 +4,20 @@ Sprints:
 	s3: Sprint 3 (December)
 
 Version 1:
-	lol 
+	This is a note. It will be ignored.
+
 	User signup: @s1
 		- Register for an account
 		- Log in @done
 		- Forget password
 
-	Manage users: @in_progress @s1
+	- Manage users @in_progress @s1
 		- Create users @in_progress @s3
 		- Delete users
 		- User profile page
 
-	Blog:
+	- Blog
 		- Creating new posts @done
 		- Comments @done
-		- Moderating comments @done
+		- Moderating comments
 
