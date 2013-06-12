@@ -1,5 +1,5 @@
 module TPS
   def self.version
-    "0.2.2"
+    "0.3.0"
   end
 end
