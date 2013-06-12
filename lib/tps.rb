@@ -26,7 +26,9 @@ module TPS
   autoload :TaskList,     'tps/task_list'
   autoload :CliReporter,  'tps/cli_reporter'
   autoload :Sprint,       'tps/sprint'
+  autoload :TaskPaper,    'tps/taskpaper'
   autoload :BarFormatter, 'tps/bar_formatter'
+  autoload :TaskPaperShim, 'tps/taskpaper_shim'
 
   require 'tps/version'
 

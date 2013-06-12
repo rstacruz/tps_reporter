@@ -1,0 +1,23 @@
+Sprints:
+	s1: Sprint 1 (November)
+	s2: Sprint 2 (Jan)
+	s3: Sprint 3 (December)
+
+Version 1:
+	lol
+
+	User signup: @s1
+		- Register for an account
+		- Log in @done
+		- Forget password
+
+	Manage users: @in_progress @s1
+		- Create users @in_progress @s3
+		- Delete users
+		- User profile page
+
+	Blog:
+		- Creating new posts @done
+		- Comments @done
+		- Moderating comments @done
+
