@@ -4,7 +4,34 @@
 
 We often need to make regular reports of things done for our projects at work. I
 hate doing these by hand. This tool lets us build these reports from YAML files
-[such as this][s].
+[such as this][sample]:
+
+``` yaml
+Version 1:
+
+	This file is in TaskPaper format.
+	Tabs are used to indent.
+	Each task begins with a "- ".
+	Projects end with a ":".
+	Tags are in the format "@tag_name".
+	All other lines (such as these) are considered as notes,
+	and are to be ignored.
+
+	- User signup
+		- Register for an account
+		- Log in @done
+		- Forget password
+
+	- Manage users
+		- Create users @in_progress
+		- Delete users
+		- User profile page @40%
+
+	- Blog
+		- Creating new posts @done
+		- Comments @done
+		- Moderating comments @done
+```
 
 Get started
 -----------
