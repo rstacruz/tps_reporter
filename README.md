@@ -33,6 +33,8 @@ Version 1:
 		- Moderating comments @done
 ```
 
+Requires Ruby 1.9+. No, 1.8.7 will not work.
+
 Get started
 -----------
 
