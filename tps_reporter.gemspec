@@ -11,7 +11,8 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.strip.split("\n")
   s.executables = Dir["bin/*"].map { |f| File.basename(f) }
 
-  s.add_dependency "tilt"
+  s.add_dependency "tilt", "~> 1.4.1"
+  s.add_dependency "haml", "~> 4.0.0"
   s.add_development_dependency "rake"
   s.add_development_dependency "contest", "0.1.3"
 end
