@@ -12,5 +12,6 @@ Gem::Specification.new do |s|
   s.executables = Dir["bin/*"].map { |f| File.basename(f) }
 
   s.add_dependency "tilt"
-  s.add_development_dependency "contest"
+  s.add_development_dependency "rake"
+  s.add_development_dependency "contest", "0.1.3"
 end

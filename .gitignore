@@ -1,2 +1,3 @@
 *.json
 *.cson
+Gemfile.lock
