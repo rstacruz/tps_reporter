@@ -6,7 +6,7 @@ class HtmlTest < UnitTest
   TESTS.each do |yml_file|
     context yml_file do
       setup do
-        @list = TPS::TaskList.new yaml: f(yml_file)
+        @list = TPS::TaskList.new :yaml => f(yml_file)
       end
 
       test "HTML" do

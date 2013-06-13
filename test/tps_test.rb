@@ -2,7 +2,7 @@ require File.expand_path('../test_helper', __FILE__)
 
 class MyTest < UnitTest
   setup do
-    @list = TPS::TaskList.new yaml: f('hello.yml')
+    @list = TPS::TaskList.new :yaml => f('hello.yml')
     @milestone = @list.tasks.first
   end
 

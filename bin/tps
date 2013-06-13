@@ -123,9 +123,9 @@ private
 
     begin
       if fn.match(/\.taskpaper/)
-        TPS::TaskList.new taskpaper: fn
+        TPS::TaskList.new :taskpaper => fn
       else
-        TPS::TaskList.new yaml: fn
+        TPS::TaskList.new :yaml => fn
       end
     rescue Psych::SyntaxError => e
       err "Parse error: #{e.message}"

@@ -2,7 +2,7 @@ require File.expand_path('../test_helper', __FILE__)
 
 class MultiSprintsTest < UnitTest
   setup do
-    @list = TPS::TaskList.new yaml: f('multi_sprints.yml')
+    @list = TPS::TaskList.new :yaml => f('multi_sprints.yml')
     @milestone = @list.tasks.first
 
     @week = %w[_ w1 w2 w3 w4].map { |id| @list.sprints[id] }

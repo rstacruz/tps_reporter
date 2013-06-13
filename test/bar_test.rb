@@ -2,7 +2,7 @@ require File.expand_path('../test_helper', __FILE__)
 
 class BarTest < UnitTest
   setup do
-    @list = TPS::TaskList.new yaml: f('markers.yml')
+    @list = TPS::TaskList.new :yaml => f('markers.yml')
     @milestone = @list.tasks.first
 
     @week = %w[w0 w1 w2 w3 w4 w5 w6].map { |id| @list.sprints[id] }
