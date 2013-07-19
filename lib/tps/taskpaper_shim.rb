@@ -21,7 +21,7 @@ module TPS::TaskPaperShim
     hash = {}
 
     # Load tags
-    tags = node.tags.map { |s| s.gsub(/^@/, '').gsub(/_/, ' ') }
+    tags = node.tags.map { |s| s.gsub(/^@/, '').gsub(/_/, ' ').gsub(/\(.*?\)$/, '') }
     if tags.any?
       if node.children.any?
         hash['_'] = tags
