@@ -1,3 +1,10 @@
+v0.4.1 - Jul 22, 2013
+---------------------
+
+  * TaskPaper: allow `@done(...)` tags.
+  * HTML: remove zebra stripes.
+  * HTML: use default font (instead of PT Sans).
+
 v0.4.0 - June 13, 2013
 ----------------------
 
