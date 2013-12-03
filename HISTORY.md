@@ -1,3 +1,10 @@
+v0.4.2 - Dec 03, 2013
+---------------------
+
+ * MIT license.
+ * Allow .tasks and .task extension.
+ * Fix Trello link support.
+
 v0.4.1 - Jul 22, 2013
 ---------------------
 
