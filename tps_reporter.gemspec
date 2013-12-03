@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/rstacruz/tps_reporter"
   s.files = `git ls-files`.strip.split("\n")
   s.executables = Dir["bin/*"].map { |f| File.basename(f) }
+  s.license = 'MIT'
 
   s.add_dependency "tilt", "~> 1.4.1"
   s.add_dependency "haml", "~> 4.0.0"

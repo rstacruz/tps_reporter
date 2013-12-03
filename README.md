@@ -145,5 +145,14 @@ Old YAML syntax
 The old (v0.3.0) YAML syntax is still supported, see the [v0.3.0 readme] for 
 more info.
 
+License
+-------
+
+© 2013, Rico Sta. Cruz. Released under the [MIT License].
+
+[My site](http://ricostacruz.com) (ricostacruz.com) -
+[Twitter](http://twitter.com/rstacruz) (@rstacruz)
+
 [v0.3.0 readme]: http://github.com/rstacruz/tps_reporter/blob/v0.3.0/README.md
 [TaskPaper]: http://www.hogbaysoftware.com/products/taskpaper
+[MIT License]: http://www.opensource.org/licenses/mit-license.php
