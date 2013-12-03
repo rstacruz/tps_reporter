@@ -122,7 +122,7 @@ private
     end
 
     begin
-      if fn.match(/\.taskpaper/)
+      if fn.match(/\.(taskpaper|tasks|task)/)
         TPS::TaskList.new :taskpaper => fn
       else
         TPS::TaskList.new :yaml => fn
