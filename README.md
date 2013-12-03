@@ -3,8 +3,8 @@
 ![TPS report](http://i.imgur.com/AA7LNTR.png)
 
 We often need to make regular reports of things done for our projects at work. I
-hate doing these by hand. This tool lets us build these reports from YAML files
-[such as this][sample]:
+hate doing these by hand. This tool lets us build these reports from [TaskPaper] 
+files [such as this][sample]:
 
 ``` yaml
 Version 1:
