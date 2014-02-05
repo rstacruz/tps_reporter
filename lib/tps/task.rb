@@ -11,6 +11,7 @@ module TPS
     attr_reader :parent
     attr_reader :tags
     attr_reader :list     # the root TaskList
+    attr_reader :url
     attr_reader :id
 
     def initialize(parent, name, data=nil, list)
@@ -29,6 +30,15 @@ module TPS
       else
         tags = Array.new
         tasks = data
+      end
+
+      # Parse crap from name
+      if @name
+        @name = @name.dup
+
+        # Get URL
+        @name.gsub!(/https?:\/\/[^ ]+/) { |url| @url = url; "" }
+        @name.strip!
       end
 
       # Parse tags.
