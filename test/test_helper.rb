@@ -1,13 +1,11 @@
 $:.unshift File.expand_path('../../lib', __FILE__)
-require 'contest'
+require 'minitest/autorun'
 require 'tps'
 
-class UnitTest < Test::Unit::TestCase
-  def f(*a)
-    File.join fixture_root, *a
-  end
+def f(*a)
+  File.join fixture_root, *a
+end
 
-  def fixture_root
-    File.expand_path('../fixtures', __FILE__)
-  end
+def fixture_root
+  File.expand_path('../fixtures', __FILE__)
 end
