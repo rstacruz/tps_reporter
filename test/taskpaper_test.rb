@@ -17,9 +17,9 @@ describe "Taskpaper" do
     end
   end
 
-  describe "spaces as tabs" do
+  describe "2 spaces as tabs" do
     before do
-      @source = "Version 1:\n  - Log in"
+      @source = "Version 1:\n  - Log in\n    - Sign up"
       @node = TPS::TaskPaper.parse(@source)
     end
 
@@ -28,7 +28,7 @@ describe "Taskpaper" do
     end
   end
 
-  describe "shim" do
+  describe "TaskPaperShim" do
     before do
       @hash = TPS::TaskPaperShim.load('tasks.taskpaper')
     end
