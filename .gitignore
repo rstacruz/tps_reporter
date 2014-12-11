@@ -2,3 +2,4 @@
 *.cson
 Gemfile.lock
 .ruby-version
+_*

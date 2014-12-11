@@ -56,44 +56,7 @@ Edit it, then generate the report:
 Format
 ------
 
-The tasks file, usually `tasks.taskpaper`, is in [TaskPaper] format. 
-
-They're simply a hierarchy of projects and tasks.
-
-``` yaml
-Edit users:
-  - Register and signup
-  - Login and logout
-```
-
-You can tag some projects or tasks.
-
-``` yaml
-Facebook connect:
-  - Register via Facebook @done
-  - Capture email
-
-Manage employees: @done
-  - Create user
-  - Edit user
-```
-
-The following tags are recognized:
-
- - `@done`
- - `@in_progress`
- - `@pt/2839478` *(Pivotal tracker ID. Links to a Pivotal tracker story.)*
- - `@tr/LabxGP3` *(Trello card short name. Links to a Trello card.)*
- - `@0pt` *(points; influences percentage. needs to end in __pt__ or __pts__.)*
- - `@10%` *(task progress. implies __in progress__.)*
-
-Example:
-
-``` yaml
-Employee management:
-  - Creating employees @40%
-  - Editing employees @done @2pts
-```
+See [docs/Format.md](docs/Format.md).
 
 Exporting to PDF or image
 -------------------------
