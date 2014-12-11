@@ -32,15 +32,15 @@ module TPS::TaskPaperShim
 
     # Load children
     node.children.each do |child|
-      text = child.plain_text
+      text = child.text
 
       # For "Trello URL: xxx" settings
       if is_setting?(child)
-        child.plain_text =~ /^(.*?): (.*)$/
+        child.text =~ /^(.*?): (.*)$/
         hash[$1] = $2
 
       # For "s1: Sprint 1" notes
-      elsif node.plain_text == "Sprints"
+      elsif node.text == "Sprints"
         text.match(/^(.*?): (.*)$/) && hash[$1] = $2
 
       # For everything else
@@ -55,7 +55,7 @@ module TPS::TaskPaperShim
   # Checks if a given node is a settings node
   def is_setting?(node)
     if node.note?
-      SETTINGS.any? { |tag| node.plain_text =~ /^#{tag}:/ }
+      SETTINGS.any? { |tag| node.text =~ /^#{tag}:/ }
     end
   end
 

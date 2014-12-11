@@ -6,7 +6,7 @@
 #     node.level      #=> 1 (depth)
 #
 #     node.text          #=> 'do things @done'
-#     node.plain_text    #=> 'do things'
+#     node.text    #=> 'do things'
 #     node.tags          #=> ['@done']
 #
 #     node.node_type
@@ -63,10 +63,6 @@ module TPS::TaskPaper
       (parent? ? parent.breadcrumbs : []) + [self]
     end
 
-    def plain_text
-      text
-    end
-
     def tags
       @tags || []
     end
@@ -91,9 +87,9 @@ module TPS::TaskPaper
       tags_str = tags.any? ? (tags.map { |t| " #{t}" }.join("")) : ""
 
       if project?
-        "#{plain_text}:#{tags_str}"
+        "#{text}:#{tags_str}"
       elsif task?
-        "- #{plain_text}#{tags_str}"
+        "- #{text}#{tags_str}"
       else
         "#{text}"
       end
