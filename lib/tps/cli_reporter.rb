@@ -30,7 +30,7 @@ module TPS
             ' '*19
           end
 
-      pref = c("-"*80, 30)+"\n"  if task.feature?
+      pref = c("━"*80, 30)+"\n"  if task.feature?
 
       # Put together
       "#{pref}" + "%-88s%s\n" % [ c1, c2 ]
@@ -55,14 +55,14 @@ module TPS
     end
 
     def status
-      l = c("(", 30)
-      r = c(")", 30)
+      l = c("", 30)
+      r = c(" ", 30)
       if task.done?
-         l + c('##', color) + r
+         l + c('✓', color) + r
       elsif task.in_progress?
-        l + c('--', color) + r
+        l + c('•', color) + r
       else
-        l + c('  ', color) + r
+        l + c(' ', color) + r
       end
     end
 
@@ -71,7 +71,7 @@ module TPS
       len = (task.percent * max).to_i
 
       prog = ("%-#{max}s" % ["="*len])
-      prog = c("|"*len, color) + c("."*(max-len), 30)
+      prog = c("❚"*len, color) + c("❘"*(max-len), 30)
 
       prog
     end
