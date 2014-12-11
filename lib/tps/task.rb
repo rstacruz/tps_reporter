@@ -79,6 +79,14 @@ module TPS
       @id = list.get_id  if list
     end
 
+    # The label of the link, if applicable.
+    def url_label
+      return unless url
+      if url =~ /github\.com\/.*?\/(\d+)$/
+        $1.strip
+      end
+    end
+
     def status
       # If no status is given, infer the status based on tasks.
       if !@status && tasks?

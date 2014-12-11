@@ -1,3 +1,4 @@
 *.json
 *.cson
 Gemfile.lock
+.ruby-version

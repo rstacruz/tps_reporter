@@ -431,6 +431,9 @@
               %a.meta{href: task.pivotal_url, target: '_blank'}= "PT ##{task.pivotal_id}"
             - if task.trello_id
               %a.meta{href: list.trello_board_url, target: '_blank'}= "Trello ##{task.trello_id}"
+            - if task.url
+              %a.meta{href: task.url, target: '_blank', class: "ext"}
+                != task.url_label ? task.url_label : "&rsaquo;"
 
             - if task.tags.any?
               - task.tags.each do |tag|
