@@ -28,6 +28,38 @@ describe "Taskpaper" do
     end
   end
 
+  describe "single lines" do
+    it "parses a basic task" do
+      @node = TPS::TaskPaper.parse("- hello").children[0]
+      assert_equal @node.plain_text, "hello"
+      assert_equal @node.task?, true
+      assert_equal @node.level, 1
+    end
+
+    it "parses a task with tags" do
+      @node = TPS::TaskPaper.parse("- hello @done").children[0]
+      assert_equal @node.plain_text, "hello"
+      assert_equal @node.tags, ["@done"]
+      assert_equal @node.task?, true
+      assert_equal @node.level, 1
+    end
+
+    it "parses a basic project" do
+      @node = TPS::TaskPaper.parse("hello:").children[0]
+      assert_equal @node.plain_text, "hello"
+      assert_equal @node.project?, true
+      assert_equal @node.level, 1
+    end
+
+    it "parses a project with tags" do
+      @node = TPS::TaskPaper.parse("hello: @done").children[0]
+      assert_equal @node.plain_text, "hello"
+      assert_equal @node.tags, ["@done"]
+      assert_equal @node.project?, true
+      assert_equal @node.level, 1
+    end
+  end
+
   describe "TaskPaperShim" do
     before do
       @hash = TPS::TaskPaperShim.load('tasks.taskpaper')

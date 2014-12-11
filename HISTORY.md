@@ -1,3 +1,8 @@
+v0.5.0 - unreleased
+-------------------
+
+ * Add support for spaces instead of tabs.
+
 v0.4.2 - Dec 03, 2013
 ---------------------
 
