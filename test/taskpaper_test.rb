@@ -34,6 +34,7 @@ describe "Taskpaper" do
       assert_equal @node.plain_text, "hello"
       assert_equal @node.task?, true
       assert_equal @node.level, 1
+      assert_equal @node.to_line_s, "- hello"
     end
 
     it "parses a task with tags" do
@@ -42,6 +43,32 @@ describe "Taskpaper" do
       assert_equal @node.tags, ["@done"]
       assert_equal @node.task?, true
       assert_equal @node.level, 1
+      assert_equal @node.to_line_s, "- hello @done"
+    end
+
+    it "parses a note" do
+      @node = TPS::TaskPaper.parse("hello").children[0]
+      assert_equal @node.plain_text, "hello"
+      assert_equal @node.note?, true
+      assert_equal @node.level, 1
+      assert_equal @node.to_line_s, "hello"
+    end
+
+    it "parses a note with fake tags" do
+      @node = TPS::TaskPaper.parse("hello @done").children[0]
+      assert_equal @node.text, "hello @done"
+      assert_equal @node.note?, true
+      assert_equal @node.level, 1
+      assert_equal @node.to_line_s, "hello @done"
+    end
+
+    it "parses a task with multiple tags" do
+      @node = TPS::TaskPaper.parse("- hello @ok @done").children[0]
+      assert_equal @node.plain_text, "hello"
+      assert_equal @node.tags, ["@ok", "@done"]
+      assert_equal @node.task?, true
+      assert_equal @node.level, 1
+      assert_equal @node.to_line_s, "- hello @ok @done"
     end
 
     it "parses a basic project" do

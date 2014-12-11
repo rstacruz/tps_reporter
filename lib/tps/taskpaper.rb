@@ -89,10 +89,12 @@ module TPS::TaskPaper
     end
 
     def to_line_s
+      tags_str = tags.any? ? (tags.map { |t| " #{t}" }.join("")) : ""
+
       if project?
-        "#{text}:"
+        "#{plain_text}:#{tags_str}"
       elsif task?
-        "- #{text}"
+        "- #{plain_text}#{tags_str}"
       else
         "#{text}"
       end
