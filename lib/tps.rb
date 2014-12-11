@@ -1,4 +1,5 @@
 require 'yaml'
+require 'haml'
 require 'tilt'
 
 # Common usage:
