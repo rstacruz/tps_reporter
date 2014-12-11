@@ -12,8 +12,19 @@ describe "Taskpaper" do
       @node = TPS::TaskPaper.parse(@source)
     end
 
-    it "should work" do
+    it "exports back to its original state" do
       assert_equal @node.to_s.strip, @source
+    end
+  end
+
+  describe "spaces as tabs" do
+    before do
+      @source = "Version 1:\n  - Log in"
+      @node = TPS::TaskPaper.parse(@source)
+    end
+
+    it "should work" do
+      assert_equal @node.to_s.strip, @source.gsub('  ', "\t")
     end
   end
 

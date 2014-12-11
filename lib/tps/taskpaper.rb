@@ -98,15 +98,27 @@ module TPS::TaskPaper
       end
     end
 
-    # Returns a hash from a line
+    # Returns a hash from a line.
     #
-    #     parse_line("\t- Hello")
+    # The `root` reference serves as the context.
+    #
+    #     parse_line("\t- Hello", root)
     #     #=> { node_type: :task, level: 2, text: "Hello" }
     #
-    def self.parse_line(line)
+    def self.parse_line(line, root={})
       node = {}
 
-      node[:level] = line.match(/^(\t*)/) && ($1.length + 1)
+      # find indentation level
+      if line =~ /^(\s+)/
+        if root[:indent]
+          node[:level] = $1.length / root[:indent].length + 1
+        else
+          root[:indent] = $1
+          node[:level] = 2
+        end
+      else
+        node[:level] = 1
+      end
 
       line = line.strip
       if line =~ /^\- +(.*)$/
@@ -147,7 +159,7 @@ module TPS::TaskPaper
     lines.each_with_index do |line, i|
       next  if line.strip == ""
 
-      node = Node.parse_line(line)
+      node = Node.parse_line(line, root)
 
       if node[:level] <= level  # Sibling
         ancestry[node[:level]-1][:children] << node
