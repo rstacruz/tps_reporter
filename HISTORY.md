@@ -1,7 +1,9 @@
-v0.5.0 - unreleased
--------------------
+v0.5.0 - Dec 11, 2014
+---------------------
 
  * Add support for spaces instead of tabs.
+ * Add support for GitHub Markdown-style tasks.
+ * CLI reporter: use nicer unicode chars in `tps print`.
 
 v0.4.2 - Dec 03, 2013
 ---------------------
