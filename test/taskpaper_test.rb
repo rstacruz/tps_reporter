@@ -95,6 +95,42 @@ describe "Taskpaper" do
     end
   end
 
+  describe "github style" do
+    it "parses a basic task" do
+      @node = TPS::TaskPaper.parse("- [ ] hello").children[0]
+      assert_equal @node.text, "hello"
+      assert_equal @node.task?, true
+      assert_equal @node.tags, []
+      assert_equal @node.level, 1
+    end
+
+    it "parses a basic task as done" do
+      @node = TPS::TaskPaper.parse("- [x] hello").children[0]
+      assert_equal @node.text, "hello"
+      assert_equal @node.task?, true
+      assert_equal @node.tags, ["@done"]
+      assert_equal @node.level, 1
+    end
+
+    it "parses a basic project" do
+      @node = TPS::TaskPaper.parse("## hello").children[0]
+      assert_equal @node.text, "hello"
+      assert_equal @node.project?, true
+      assert_equal @node.tags, []
+      assert_equal @node.level, 1
+    end
+
+    it "parses a basic task as done" do
+      @node = TPS::TaskPaper.parse("## hello @done").children[0]
+      assert_equal @node.text, "hello"
+      assert_equal @node.project?, true
+      assert_equal @node.tags, ["@done"]
+      assert_equal @node.level, 1
+    end
+  end
+
+
+
   describe "TaskPaperShim" do
     before do
       @hash = TPS::TaskPaperShim.load('tasks.taskpaper')

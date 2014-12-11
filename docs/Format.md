@@ -1,7 +1,7 @@
 File format
 ===========
 
-The tasks file, usually `tasks.taskpaper`, is in [TaskPaper] format. 
+The tasks file, usually `tasks.taskpaper`, is loosely based off of the [TaskPaper] format. 
 
 They're simply a hierarchy of projects and tasks. Projects are lines that end with `:`, and tasks are lines that begin with `- `, with indentation.
 
@@ -10,6 +10,21 @@ Edit users:
   - Register and signup
   - Login and logout
 ```
+
+### Nesting
+
+You can nest tasks as deep as you like.
+
+``` yaml
+Edit users:
+  - Register and signup
+  - Login and logout
+    - Design for the pages
+    - Responsive
+    - Implement functionality
+```
+
+### Tagging
 
 You can tag some projects or tasks using `@`. For projects, you may put the tags after the colon.
 
@@ -22,6 +37,35 @@ Manage employees: @done
   - Create user
   - Edit user
 ```
+
+### Done
+
+Mark tasks as done by adding a `@done` tag, or using `x` instead of `-`.
+
+``` yaml
+Manage user records:
+  - Create user
+  x Edit user
+  x Delete user
+  - Update user
+```
+
+### GitHub Flavored Markdown style
+
+You can make your lists GitHub-compatible by using `- [ ]` and `- [x]` in your tasks. Projects in Markdown headings (`### heading`) are also supported.
+
+``` yaml
+### Manage user records
+
+  - [ ] Create user
+  - [x] Edit user
+  - [x] Delete user
+  - [ ] Update user
+```
+
+### Done
+
+### Tags
 
 The following tags are recognized:
 

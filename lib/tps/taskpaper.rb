@@ -128,15 +128,31 @@ module TPS::TaskPaper
       end
 
       line = line.strip
-      if line =~ /^([\-x]) +(.*)$/
+
+      # GitHub-style task
+      if line =~ /^- \[([ x])\] +(.*)$/
         node[:node_type] = :task
         node[:text] = $1
         node[:text], node[:tags] = parse_text($2)
         node[:tags] << "@done" if $1 == "x"
 
+      elsif line =~ /^([\-x]) +(.*)$/
+        node[:node_type] = :task
+        node[:text] = $1
+        node[:text], node[:tags] = parse_text($2)
+        node[:tags] << "@done" if $1 == "x"
+
+      # Project
       elsif line =~ /^(.*):((?:\s*#{TAG_REGEX})+)?$/m
         node[:node_type] = :project
         node[:text], node[:tags] = parse_text("#{$1}#{$2}")
+
+      # GitHub-style project
+      elsif line =~ /^#+ (.*)$/
+        node[:node_type] = :project
+        node[:text], node[:tags] = parse_text($1)
+
+      # Note
       else
         node[:node_type] = :note
         node[:text] = line
