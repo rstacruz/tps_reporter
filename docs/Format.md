@@ -86,3 +86,4 @@ Employee management:
   - Editing employees @done @2pts
 ```
 
+[TaskPaper]: http://www.hogbaysoftware.com/products/taskpaper
