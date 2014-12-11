@@ -128,10 +128,11 @@ module TPS::TaskPaper
       end
 
       line = line.strip
-      if line =~ /^\- +(.*)$/
+      if line =~ /^([\-x]) +(.*)$/
         node[:node_type] = :task
         node[:text] = $1
-        node[:text], node[:tags] = parse_text($1)
+        node[:text], node[:tags] = parse_text($2)
+        node[:tags] << "@done" if $1 == "x"
 
       elsif line =~ /^(.*):((?:\s*#{TAG_REGEX})+)?$/m
         node[:node_type] = :project

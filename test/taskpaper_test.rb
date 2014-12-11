@@ -37,6 +37,14 @@ describe "Taskpaper" do
       assert_equal @node.to_line_s, "- hello"
     end
 
+    it "parses a done task" do
+      @node = TPS::TaskPaper.parse("x hello").children[0]
+      assert_equal @node.text, "hello"
+      assert_equal @node.task?, true
+      assert_equal @node.level, 1
+      assert_equal @node.tags, ["@done"]
+    end
+
     it "parses a task with tags" do
       @node = TPS::TaskPaper.parse("- hello @done").children[0]
       assert_equal @node.text, "hello"
