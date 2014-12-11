@@ -11,7 +11,7 @@ Edit users:
   - Login and logout
 ```
 
-### Nesting
+## Nesting
 
 You can nest tasks as deep as you like.
 
@@ -24,7 +24,7 @@ Edit users:
     - Implement functionality
 ```
 
-### Tagging
+## Tagging
 
 You can tag some projects or tasks using `@`. For projects, you may put the tags after the colon.
 
@@ -38,9 +38,15 @@ Manage employees: @done
   - Edit user
 ```
 
-### Done
+## Done
 
 Mark tasks as done by adding a `@done` tag.
+
+``` yaml
+Make cake:
+  - Get eggs and flour @done
+  - Bake the cake
+```
   
 You may also use `x` instead of `-` to mark a task as done. (This is not standard [TaskPaper] behavior.)
 
@@ -52,12 +58,14 @@ Manage user records:
   - Update user
 ```
 
-### GitHub Flavored Markdown style
+## GitHub Flavored Markdown style
 
-You can make your lists GitHub-compatible by using `- [ ]` and `- [x]` in your tasks. Projects in Markdown headings (`### heading`) are also supported.
+You can make your lists GitHub-compatible by using `- [ ]` and `- [x]` in your tasks. Keep in mind that unlike in GitHub, you will still need to indent your file consistently: that is, a tab (or spaces) before the `-`.
+  
+Note that this is mostly a hack and proper indentations will still be needed.
 
 ``` yaml
-### Manage user records
+Manage user records:
 
   - [ ] Create user
   - [x] Edit user
@@ -65,9 +73,19 @@ You can make your lists GitHub-compatible by using `- [ ]` and `- [x]` in your t
   - [ ] Update user
 ```
 
-### Done
+You can nest, but keep the indentation consistent (2 and 4 spaces in this example).
 
-### Tags
+``` yaml
+Build new UI:
+
+  - [ ] Create interface
+    - [ ] Planning
+    - [ ] Design
+    - [ ] Implementation
+  - [ ] Deploy new UI
+```
+
+## Tags
 
 The following tags are recognized:
 
