@@ -40,7 +40,9 @@ Manage employees: @done
 
 ### Done
 
-Mark tasks as done by adding a `@done` tag, or using `x` instead of `-`.
+Mark tasks as done by adding a `@done` tag.
+  
+You may also use `x` instead of `-` to mark a task as done. (This is not standard [TaskPaper] behavior.)
 
 ``` yaml
 Manage user records:
