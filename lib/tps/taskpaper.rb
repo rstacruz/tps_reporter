@@ -22,16 +22,21 @@ module TPS::TaskPaper
     attr_reader :children
     attr_reader :parent
 
+    TAG_REGEX = %r[(?:^|\s*)@[^\s]*(?:\([^\)]*\))?]
+
     DEFAULTS = {
       :level => 0,
       :node_type => :root,
       :text => ''
     }
 
-    def initialize(options)
+    def initialize(options = {})
       options = DEFAULTS.merge(options)
       options.each { |k, v| instance_variable_set :"@#{k}", v }
-      @children = options[:children].map { |data| Node.new data.merge(:parent => self) }
+
+      @children = options[:children].map { |data|
+        Node.new data.merge(:parent => self)
+      }
     end
 
     def project?
@@ -58,18 +63,12 @@ module TPS::TaskPaper
       (parent? ? parent.breadcrumbs : []) + [self]
     end
 
-    TAG_REGEX = %r[(?:^|\s*)@[^\s]*(?:\([^\)]*\))?]
-
-    # Returns text without tags
     def plain_text
       text
-        .gsub(TAG_REGEX, '')
-        .gsub(/\s*:\s*$/, '')
-        .strip
     end
 
     def tags
-      text.scan(TAG_REGEX).map(&:strip)
+      @tags || []
     end
 
     def description
@@ -100,6 +99,16 @@ module TPS::TaskPaper
       end
     end
 
+    def self.parse_text(text)
+      [
+        text
+          .gsub(TAG_REGEX, '')
+          .gsub(/\s*:\s*$/, '')
+          .strip,
+        text.scan(TAG_REGEX).map(&:strip)
+      ]
+    end
+
     # Returns a hash from a line.
     #
     # The `root` reference serves as the context.
@@ -126,9 +135,11 @@ module TPS::TaskPaper
       if line =~ /^\- +(.*)$/
         node[:node_type] = :task
         node[:text] = $1
+        node[:text], node[:tags] = parse_text($1)
+
       elsif line =~ /^(.*):((?:\s*#{TAG_REGEX})+)?$/m
         node[:node_type] = :project
-        node[:text] = "#{$1}#{$2}"
+        node[:text], node[:tags] = parse_text("#{$1}#{$2}")
       else
         node[:node_type] = :note
         node[:text] = line
